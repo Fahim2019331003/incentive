@@ -1,17 +1,17 @@
-"use client";
-import React, { useCallback, useState } from "react";
-import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import Modal from "./Modal";
-import Heading from "../Heading";
-import Input from "../inputs/Input";
-import { toast } from "react-hot-toast";
-import Button from "../Button";
-import { signIn } from "next-auth/react";
-import useLoginModal from "@/app/hooks/useLoginModal";
+'use client';
+import React, { useCallback, useState } from 'react';
+import axios from 'axios';
+import { AiFillGithub } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
+import Modal from './Modal';
+import Heading from '../Heading';
+import Input from '../inputs/Input';
+import { toast } from 'react-hot-toast';
+import Button from '../Button';
+import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -27,9 +27,9 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: '',
+      email: '',
+      password: '',
     },
   });
 
@@ -38,13 +38,13 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     axios
-      .post("/api/register", data)
+      .post('/api/register', data)
       .then(() => {
         registerModal.onClose();
       })
       .catch((error) => {
-        // console.log(error);
-        toast.error("something went wrong");
+        console.log(error);
+        toast.error('something went wrong');
       })
       .finally(() => {
         setIsLoading(false);
@@ -98,13 +98,13 @@ const RegisterModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn("google")}
+        onClick={() => signIn('google')}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => signIn("github")}
+        onClick={() => signIn('github')}
       />
       <div className=" text-neutral-500 mt-4 font-light">
         <div className=" justify-center flex flex-row items-center gap-2">
@@ -132,7 +132,7 @@ const RegisterModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
-      secondaryActionLabel={""}
+      secondaryActionLabel={''}
     />
   );
 };

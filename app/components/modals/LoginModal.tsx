@@ -1,18 +1,17 @@
-"use client";
-import React, { useCallback, useState } from "react";
-import { signIn } from "next-auth/react";
-import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import Modal from "./Modal";
-import Heading from "../Heading";
-import Input from "../inputs/Input";
-import { toast } from "react-hot-toast";
-import Button from "../Button";
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useCallback, useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { AiFillGithub } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
+import Modal from './Modal';
+import Heading from '../Heading';
+import Input from '../inputs/Input';
+import { toast } from 'react-hot-toast';
+import Button from '../Button';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
   const router = useRouter();
@@ -29,8 +28,8 @@ const LoginModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -38,14 +37,14 @@ const LoginModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    signIn("credentials", {
+    signIn('credentials', {
       // next-auth sign in je credintials likhsi oikhane pathabo eita tai next-auth signIn use korse
       ...data,
       redirect: false,
     }).then((callback) => {
       setIsLoading(false);
       if (callback?.ok) {
-        toast.success("Logged In");
+        toast.success('Logged In');
         router.refresh();
         loginModal.onClose();
       }
@@ -94,13 +93,13 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn("google")}
+        onClick={() => signIn('google')}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => signIn("github")}
+        onClick={() => signIn('github')}
       />
       <div className=" text-neutral-500 mt-4 font-light">
         <div className=" justify-center flex flex-row items-center gap-2">
@@ -128,7 +127,7 @@ const LoginModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
-      secondaryActionLabel={""}
+      secondaryActionLabel={''}
     />
   );
 };
