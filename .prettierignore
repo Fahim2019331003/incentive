@@ -1,0 +1,9 @@
+# ignore artifacts of the build process
+next/
+.yarn
+.next
+dist
+node_modules
+
+# igonre specific files
+package-lock.json
