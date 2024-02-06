@@ -9,8 +9,9 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-5  xl:px-10 xl:pt-10">
-      <div className="gap-10 mt-24 ">This is the home page test</div>
+    <main className="flex min-h-screen flex-col  px-5  xl:px-10 xl:pt-10">
+      <div className="">This is the home page test</div>
+      <div className=" ">This is the home page test</div>
     </main>
   );
 }

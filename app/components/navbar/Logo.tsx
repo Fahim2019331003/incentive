@@ -1,15 +1,15 @@
-"use client";
-import Image from "next/image";
-import React from "react";
+'use client';
+
+import Image from 'next/image';
 
 const Logo = () => {
   return (
     <Image
       alt="Logo"
       className="hidden md:block cursor-pointer  "
-      height="100"
-      width="100"
-      src="/images/images.png"
+      height="50"
+      width="50"
+      src="/images/logo.png"
     />
   );
 };
