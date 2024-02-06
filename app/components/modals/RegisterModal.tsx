@@ -1,17 +1,17 @@
 'use client';
-import React, { useCallback, useState } from 'react';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
 import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { useCallback, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import useRegisterModal from '@/app/hooks/useRegisterModal';
-import Modal from './Modal';
+import Button from '../Button';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
-import { toast } from 'react-hot-toast';
-import Button from '../Button';
-import { signIn } from 'next-auth/react';
-import useLoginModal from '@/app/hooks/useLoginModal';
+import Modal from './Modal';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -59,7 +59,7 @@ const RegisterModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to DataAi"
+        title="Welcome to Incentive!"
         subtitle="Create an account"
         center={false}
       />
