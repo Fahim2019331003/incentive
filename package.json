@@ -11,8 +11,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint .",
-    "lint:fix": "next --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "lint": "eslint lint .",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "format": "prettier --write . --ignore-path .gitignore",
     "postinstall": "prisma generate"
   },

@@ -1,6 +1,5 @@
 import getCurrentUser from './actions/getCurrentUser';
 import EmptyState from './components/EmptyState';
-const hello = 'hello';
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
