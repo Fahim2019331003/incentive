@@ -1,5 +1,6 @@
 import getCurrentUser from './actions/getCurrentUser';
 import EmptyState from './components/EmptyState';
+const inter = Inter({ subsets: ['latin'] });
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
