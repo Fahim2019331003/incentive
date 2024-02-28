@@ -27,7 +27,7 @@ export default async function Home() {
         <div>
           <ul>
             {items.map((item) => (
-              <Card title={item.title} description={item.description} />
+              <Card title={item.title} description={item.description} key={item.title}/>
             ))}
           </ul>
         </div>

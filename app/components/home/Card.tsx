@@ -1,6 +1,6 @@
-const card = ({title,description}) => {
+const Card = ({ title, description }) => {
   return (
-    <div className="mx-40 my-10">
+    <div className="mx-40 my-10" key={title}>
       {/* <div className="text-5xl text-red-700 gap-0">______</div> */}
       <hr
         style={{
@@ -19,4 +19,4 @@ const card = ({title,description}) => {
   );
 };
 
-export default card;
+export default Card;

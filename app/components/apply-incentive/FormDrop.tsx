@@ -23,7 +23,7 @@ const FormDrop = ({ title, options, setKeys }) => {
   useEffect(() => {
     const values = Array.from(selectedKeys).join(', ').replaceAll('_', ' ');
     setKeys(values);
-  }, [selectedKeys]);
+  }, [selectedKeys, setKeys]);
 
   return (
     <div className="flex justify-center items-center">

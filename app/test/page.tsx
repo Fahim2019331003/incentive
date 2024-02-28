@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import FormInput from '../components/apply-incentive/FormInput';
 
-const page = () => {
+const Page = () => {
   const [input, setInput] = useState('');
   console.log('check');
 
@@ -14,4 +14,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

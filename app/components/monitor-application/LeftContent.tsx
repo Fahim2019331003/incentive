@@ -42,7 +42,7 @@ const LeftContent = ({ name, role }) => {
       <div className="mt-10">
         <ul>
           {options.map((item) => (
-            <li className="mt-3">
+            <li className="mt-3" key={item.urlName}>
               <div className="flex items-center">
                 <Link href={item.url}>
                   <Image

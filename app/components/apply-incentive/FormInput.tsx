@@ -2,11 +2,10 @@ import { Input } from '@nextui-org/react';
 import React, { useState } from 'react';
 
 const FormInput = ({title ,setInput}) => {
-  const [inputValue, setInputValue] = useState('');
 
   const handleChange = (event) => {
     setInput(event.target.value);
-    setInputValue(event.target.value);
+
   };
   return (
     <div className="flex justify-center items-center">

@@ -20,7 +20,7 @@ const page = () => {
             <div className="px-15">
               <ol>
                 {listData.map((item, index) => (
-                  <ListItem data={item.data} index={index + 1} />
+                  <ListItem data={item.data} index={index + 1} key={index}/>
                 ))}
               </ol>
             </div>

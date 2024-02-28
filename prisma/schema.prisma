@@ -44,7 +44,15 @@ model User {
   updatedAt      DateTime  @updatedAt
   verified       Boolean   @default(false)
   count          Int       @default(0)
+  role           Role      @default(USER)
 
   accounts    Account[]
   collections Collection[]
 }
+
+enum Role {
+  USER
+  ADMIN
+  STUDENT
+}
+

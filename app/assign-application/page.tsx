@@ -1,6 +1,4 @@
-import Link from 'next/link';
 import LeftContent from '../components/monitor-application/LeftContent';
-import { useRouter } from 'next/router';
 import RightContent from '../components/monitor-application/RightContent';
 
 const page = () => {
@@ -11,9 +9,8 @@ const page = () => {
           <LeftContent name={'Dr. Reza Selim'} role={'Admin'} />
         </div>
 
-        
         <div className="w-3/4">
-          <RightContent/>
+          <RightContent />
         </div>
       </div>
     </main>

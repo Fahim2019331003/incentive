@@ -1,6 +1,6 @@
 'use client';
 
-import { getSearchData } from '@/app/dashboard/page';
+import { getSearchData } from '@/app/dashboard/getData';
 import {
   Input,
   Pagination,
@@ -45,7 +45,7 @@ const columns = [
   },
 ];
 
-const table = ({ title, tableData }) => {
+const CustomTable = ({ title, tableData }) => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -179,4 +179,4 @@ const table = ({ title, tableData }) => {
   );
 };
 
-export default table;
+export default CustomTable;

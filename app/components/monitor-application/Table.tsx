@@ -1,21 +1,21 @@
 'use client';
 
+import { getSearchData } from '@/app/monitor-application/getData';
 import {
-    Input,
-    Pagination,
-    Table,
-    TableBody,
-    TableCell,
-    TableColumn,
-    TableHeader,
-    TableRow,
-    getKeyValue,
+  Input,
+  Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  getKeyValue,
 } from '@nextui-org/react';
 import { useCallback, useMemo, useState } from 'react';
 import { SearchIcon } from './SearchIcon';
 import Tabletitle from './Tabletitle';
-import { getSearchData } from "@/app/monitor-application/getData";
-import Tableitem from './Tableitem';
+// import Tableitem from './Tableitem';
 
 const columns = [
   {
@@ -45,7 +45,7 @@ const columns = [
   },
 ];
 
-const table = ({ title, tableData }) => {
+const CustomTable = ({ title, tableData }) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [datas, setDatas] = useState(tableData);
@@ -92,7 +92,8 @@ const table = ({ title, tableData }) => {
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
           classNames={{
-            input:"focus:outline-none border-transparent focus:border-transparent focus:ring-0"
+            input:
+              'focus:outline-none border-transparent focus:border-transparent focus:ring-0',
           }}
         />
       </div>
@@ -114,7 +115,6 @@ const table = ({ title, tableData }) => {
 
       <div className="mr-10">
         <div className="relative overflow-x-auto mb-10 mt-3 mx-20">
-          
           <div className="mt-5 text-xl">
             {/* Table Rows */}
             <Table
@@ -149,10 +149,10 @@ const table = ({ title, tableData }) => {
                 emptyContent={'No rows to display.'}
                 className="text-xl"
               >
-                {(item) => (
+                {(item:any) => (
                   <TableRow key={item.id} className="pt-10">
                     {(columnKey) => (
-                        // <Tableitem item={item} columnKey={columnKey}/>
+                      // <Tableitem item={item} columnKey={columnKey}/>
                       <TableCell>{getKeyValue(item, columnKey)}</TableCell>
                     )}
                   </TableRow>
@@ -166,4 +166,4 @@ const table = ({ title, tableData }) => {
   );
 };
 
-export default table;
+export default CustomTable;
