@@ -12,7 +12,7 @@ const options = [
     iconsUrl: '/images/leftcontent/monitor.png',
   },
   {
-    url: '/',
+    url: '/assign-application',
     urlName: 'Assign Application',
     iconsUrl: '/images/leftcontent/assign.png',
   },
@@ -43,22 +43,26 @@ const LeftContent = ({ name, role }) => {
         <ul>
           {options.map((item) => (
             <li className="mt-3">
-              <Link href={item.url}>
-                <div className="flex items-center">
+              <div className="flex items-center">
+                <Link href={item.url}>
                   <Image
                     src={item.iconsUrl}
                     width={20}
                     height={20}
                     alt="icon"
-                    className='mr-2'
+                    className="mr-2"
                   />
-                  {pathname === item.url ? (
-                    <span className="font-bold">{item.urlName}</span>
-                  ) : (
-                    <span>{item.urlName}</span>
-                  )}{' '}
-                </div>
-              </Link>
+                </Link>
+                {pathname === item.url ? (
+                  <span className="font-bold">
+                    <Link href={item.url}>{item.urlName}</Link>
+                  </span>
+                ) : (
+                  <span>
+                    <Link href={item.url}>{item.urlName}</Link>
+                  </span>
+                )}{' '}
+              </div>
             </li>
           ))}
         </ul>

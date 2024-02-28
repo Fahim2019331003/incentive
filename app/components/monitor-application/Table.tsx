@@ -1,21 +1,21 @@
 'use client';
 
-import { getSearchData } from '@/app/dashboard/page';
 import {
-  Input,
-  Pagination,
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-  getKeyValue,
+    Input,
+    Pagination,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
+    getKeyValue,
 } from '@nextui-org/react';
-import Link from 'next/link';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { SearchIcon } from './SearchIcon';
 import Tabletitle from './Tabletitle';
+import { getSearchData } from "@/app/monitor-application/getData";
+import Tableitem from './Tableitem';
 
 const columns = [
   {
@@ -46,21 +46,10 @@ const columns = [
 ];
 
 const table = ({ title, tableData }) => {
-  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [datas, setDatas] = useState(tableData);
   const hasSearchFilter = Boolean(search);
-
-  useEffect(() => {
-    const values = Array.from(selectedKeys);
-
-    console.log(values);
-  }, [selectedKeys]);
-
-  const changeSelectionKeys = (e) => {
-    setSelectedKeys(e);
-  };
 
   const filterItems = useMemo(async () => {
     if (hasSearchFilter) {
@@ -103,8 +92,7 @@ const table = ({ title, tableData }) => {
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
           classNames={{
-            input:
-              'focus:outline-none border-transparent focus:border-transparent focus:ring-0',
+            input:"focus:outline-none border-transparent focus:border-transparent focus:ring-0"
           }}
         />
       </div>
@@ -120,17 +108,18 @@ const table = ({ title, tableData }) => {
 
   return (
     <div>
-      <div className="my-10">
+      <div className="mr-10">
         <Tabletitle title={title} />
       </div>
 
-      <div className="mx-10">
+      <div className="mr-10">
         <div className="relative overflow-x-auto mb-10 mt-3 mx-20">
+          
           <div className="mt-5 text-xl">
             {/* Table Rows */}
             <Table
               color={'primary'}
-              selectionMode="multiple"
+              selectionMode="single"
               aria-label="Example table with client side pagination"
               topContent={topContent}
               bottomContent={
@@ -149,7 +138,6 @@ const table = ({ title, tableData }) => {
               classNames={{
                 wrapper: 'min-h-[222px]',
               }}
-              onSelectionChange={(e) => changeSelectionKeys(e)}
             >
               <TableHeader columns={columns}>
                 {(column) => (
@@ -161,12 +149,11 @@ const table = ({ title, tableData }) => {
                 emptyContent={'No rows to display.'}
                 className="text-xl"
               >
-                {(item: any) => (
-                  <TableRow key={item.appID} className="pt-10">
+                {(item) => (
+                  <TableRow key={item.id} className="pt-10">
                     {(columnKey) => (
-                      <TableCell>
-                        <Link href={'/'}>{getKeyValue(item, columnKey)}</Link>
-                      </TableCell>
+                        // <Tableitem item={item} columnKey={columnKey}/>
+                      <TableCell>{getKeyValue(item, columnKey)}</TableCell>
                     )}
                   </TableRow>
                 )}
