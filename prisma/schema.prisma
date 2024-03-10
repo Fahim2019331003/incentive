@@ -45,6 +45,100 @@ model User {
   verified       Boolean   @default(false)
   count          Int       @default(0)
 
-  accounts    Account[]
-  collections Collection[]
+  accounts              Account[]
+  collections           Collection[]
+  asApplicant           Application[]  @relation("Applicant")
+  asCorrespondingAuthor Application[]  @relation("CorrespondingAuthor")
+  notification          Notification[] @relation("Notification")
+  asEvaluator           Evaluation[]   @relation("EvaluationBy")
+  incentive             Incentive?     @relation("incentive")
+}
+
+model Application {
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  department              String
+  school                  String
+  title                   String
+  qIndex                  QIndex   @default(Q4)
+  PublishernameAndAddress String?
+  volAndDate              String?
+  awardDetails            String?
+  patentDetails           String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  status                  Status?  @default(PENDING)
+
+  correspondingAuthorId String       @unique @db.ObjectId
+  correspondingAuthor   User?        @relation("CorrespondingAuthor", fields: [correspondingAuthorId], references: [id])
+  applicantId           String       @unique @db.ObjectId
+  applicant             User         @relation("Applicant", fields: [applicantId], references: [id])
+  evaluations           Evaluation[] @relation("Evaluation")
+  incentive             Incentive[]  @relation("IncentiveTo")
+  // affiliaterPersons User[] @relation("AffiliatedPerson")
+  // updatedBy User[] @relation("UpdatedBy")
+}
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String
+  type      String
+  createdAt DateTime @default(now())
+
+  notificationForId String @unique @db.ObjectId
+  notificationFor   User   @relation("Notification", fields: [notificationForId], references: [id])
+}
+
+model Evaluation {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  feedback String?
+  status   Boolean
+
+  evaluationId  String       @unique @db.ObjectId
+  evaluatedBy   User?        @relation("EvaluationBy", fields: [evaluationId], references: [id])
+  applicationId String       @unique @db.ObjectId
+  evaluation    Application? @relation("Evaluation", fields: [evaluationId], references: [id])
+}
+
+model Incentive {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  totalPayment String?
+  totalPaid    String?
+
+  incentiveForId String?      @unique @db.ObjectId
+  incentiveFor   User?        @relation("incentive", fields: [incentiveForId], references: [id])
+  applicationId  String?      @unique @db.ObjectId
+  application    Application? @relation("IncentiveTo", fields: [applicationId], references: [id])
+  payments       Payment[]    @relation("Payments")
+
+  @@unique([incentiveForId, applicationId])
+}
+
+model Payment {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  amount        String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  incentiveToId String     @unique @db.ObjectId
+  incentiveTo   Incentive? @relation("Payments", fields: [incentiveToId], references: [id])
+}
+
+enum Status {
+  PENDING
+  PROCESSING
+  ACCEPTED
+  REJECTED
+}
+
+enum QIndex {
+  Q1
+  Q2
+  Q3
+  Q4
+}
+
+enum Role {
+  APPLICANT
+  ADMIN
+  COORDINATOR
+  EVALUATOR
 }
