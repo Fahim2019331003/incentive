@@ -7,6 +7,7 @@ interface formInput {
 
 export default async function checkApplication(formInput) {
   try {
+    return null;
   } catch (error: any) {
     return error.mesage;
   }
