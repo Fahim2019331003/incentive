@@ -59,6 +59,7 @@ model User {
   // asAffiliated Application[] @relation("AffiliatedPerson")
 }
 
+
 model Application {
   id                      String   @id @default(auto()) @map("_id") @db.ObjectId
   department              String
@@ -67,6 +68,7 @@ model Application {
   qIndex                  QIndex
   PublishernameAndAddress String
   volAndDate              String
+
   awardDetails            String?
   patentDetails           String?
   createdAt               DateTime @default(now())
@@ -81,6 +83,7 @@ model Application {
   affiliaterPersons     String[]
   updatedBy             String[]
   payments              Payment[]    @relation("ApplicationFor")
+
 }
 
 model Notification {
@@ -90,6 +93,7 @@ model Notification {
   createdAt DateTime @default(now())
 
   notificationForId String @db.ObjectId
+
   notificationFor   User   @relation("Notification", fields: [notificationForId], references: [id])
 }
 
@@ -125,6 +129,7 @@ model Payment {
   incentiveTo      Incentive?   @relation("Payments", fields: [incentiveToId], references: [id])
   applicationForId String       @db.ObjectId
   application      Application? @relation("ApplicationFor", fields: [applicationForId], references: [id])
+
 }
 
 enum Status {
