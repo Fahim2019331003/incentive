@@ -26,12 +26,12 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Collection {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+// model Collection {
+//   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String? @db.ObjectId
-}
+//   User   User?   @relation(fields: [userId], references: [id])
+//   userId String? @db.ObjectId
+// }
 
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
@@ -43,40 +43,47 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   verified       Boolean   @default(false)
-  count          Int       @default(0)
   role           Role      @default(APPLICANT)
+  department     String?
+  designation    String?
+  bankinfo       String?
 
   accounts              Account[]
-  collections           Collection[]
+  // collections           Collection[]
   asApplicant           Application[]  @relation("Applicant")
   asCorrespondingAuthor Application[]  @relation("CorrespondingAuthor")
   notification          Notification[] @relation("Notification")
   asEvaluator           Evaluation[]   @relation("EvaluationBy")
-  incentive             Incentive?     @relation("incentive")
+  incentive             Incentive?     @relation("Incentive")
+  // asUpdatedBy Application[] @relation("UpdatedBy")
+  // asAffiliated Application[] @relation("AffiliatedPerson")
 }
+
 
 model Application {
   id                      String   @id @default(auto()) @map("_id") @db.ObjectId
   department              String
   school                  String
   title                   String
-  qIndex                  QIndex   @default(Q4)
-  PublishernameAndAddress String?
-  volAndDate              String?
+  qIndex                  QIndex
+  PublishernameAndAddress String
+  volAndDate              String
+
   awardDetails            String?
   patentDetails           String?
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
   status                  Status?  @default(PENDING)
 
-  correspondingAuthorId String       @unique @db.ObjectId
+  correspondingAuthorId String?       @db.ObjectId
   correspondingAuthor   User?        @relation("CorrespondingAuthor", fields: [correspondingAuthorId], references: [id])
-  applicantId           String       @unique @db.ObjectId
-  applicant             User         @relation("Applicant", fields: [applicantId], references: [id])
+  applicantId           String?      @db.ObjectId
+  applicant             User?         @relation("Applicant", fields: [applicantId], references: [id])
   evaluations           Evaluation[] @relation("Evaluation")
-  incentive             Incentive[]  @relation("IncentiveTo")
-  // affiliaterPersons User[] @relation("AffiliatedPerson")
-  // updatedBy User[] @relation("UpdatedBy")
+  affiliaterPersons     String[]
+  updatedBy             String[]
+  payments              Payment[]    @relation("ApplicationFor")
+
 }
 
 model Notification {
@@ -85,18 +92,19 @@ model Notification {
   type      String
   createdAt DateTime @default(now())
 
-  notificationForId String @unique @db.ObjectId
+  notificationForId String @db.ObjectId
+
   notificationFor   User   @relation("Notification", fields: [notificationForId], references: [id])
 }
 
 model Evaluation {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
   feedback String?
-  status   Boolean
+  status   Boolean?
 
-  evaluationId  String       @unique @db.ObjectId
+  evaluationId  String       @db.ObjectId
   evaluatedBy   User?        @relation("EvaluationBy", fields: [evaluationId], references: [id])
-  applicationId String       @unique @db.ObjectId
+  applicationId String       @db.ObjectId
   evaluation    Application? @relation("Evaluation", fields: [evaluationId], references: [id])
 }
 
@@ -105,22 +113,23 @@ model Incentive {
   totalPayment String?
   totalPaid    String?
 
-  incentiveForId String?      @unique @db.ObjectId
-  incentiveFor   User?        @relation("incentive", fields: [incentiveForId], references: [id])
-  applicationId  String?      @unique @db.ObjectId
-  application    Application? @relation("IncentiveTo", fields: [applicationId], references: [id])
-  payments       Payment[]    @relation("Payments")
+  incentiveForId String?   @unique @db.ObjectId
+  incentiveFor   User?     @relation("Incentive", fields: [incentiveForId], references: [id])
+  payments       Payment[] @relation("Payments")
 
-  @@unique([incentiveForId, applicationId])
+  // @@unique([incentiveForId, applicationId])
 }
 
 model Payment {
-  id            String     @id @default(auto()) @map("_id") @db.ObjectId
-  amount        String?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  incentiveToId String     @unique @db.ObjectId
-  incentiveTo   Incentive? @relation("Payments", fields: [incentiveToId], references: [id])
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  amount           String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  incentiveToId    String       @db.ObjectId
+  incentiveTo      Incentive?   @relation("Payments", fields: [incentiveToId], references: [id])
+  applicationForId String       @db.ObjectId
+  application      Application? @relation("ApplicationFor", fields: [applicationForId], references: [id])
+
 }
 
 enum Status {
