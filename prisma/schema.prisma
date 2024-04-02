@@ -59,31 +59,31 @@ model User {
   // asAffiliated Application[] @relation("AffiliatedPerson")
 }
 
-
 model Application {
-  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                      String @id @default(auto()) @map("_id") @db.ObjectId
   department              String
   school                  String
   title                   String
+  journalName             String
   qIndex                  QIndex
   PublishernameAndAddress String
   volAndDate              String
 
-  awardDetails            String?
-  patentDetails           String?
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
-  status                  Status?  @default(PENDING)
+  awardDetails  String?
+  patentDetails String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  status        Status?  @default(PENDING)
 
-  correspondingAuthorId String?       @db.ObjectId
+  correspondingAuthorId String?      @db.ObjectId
   correspondingAuthor   User?        @relation("CorrespondingAuthor", fields: [correspondingAuthorId], references: [id])
   applicantId           String?      @db.ObjectId
-  applicant             User?         @relation("Applicant", fields: [applicantId], references: [id])
+  applicant             User?        @relation("Applicant", fields: [applicantId], references: [id])
   evaluations           Evaluation[] @relation("Evaluation")
-  affiliaterPersons     String[]
+  affiliatedPersons     String[]
+  affiliatedPersonsName String[]
   updatedBy             String[]
   payments              Payment[]    @relation("ApplicationFor")
-
 }
 
 model Notification {
@@ -94,7 +94,7 @@ model Notification {
 
   notificationForId String @db.ObjectId
 
-  notificationFor   User   @relation("Notification", fields: [notificationForId], references: [id])
+  notificationFor User @relation("Notification", fields: [notificationForId], references: [id])
 }
 
 model Evaluation {
@@ -129,7 +129,6 @@ model Payment {
   incentiveTo      Incentive?   @relation("Payments", fields: [incentiveToId], references: [id])
   applicationForId String       @db.ObjectId
   application      Application? @relation("ApplicationFor", fields: [applicationForId], references: [id])
-
 }
 
 enum Status {

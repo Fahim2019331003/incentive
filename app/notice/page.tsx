@@ -1,7 +1,11 @@
 const page = () => {
   return (
-    <main className="flex min-h-screen flex-col  px-5  xl:px-10 xl:pt-10">
-      <div className="">Notice</div>
+    <main className="flex flex-col max-w-full">
+      <div className="my-16">
+        <div className="mx-16">
+          <div className=" border min-h-screen">Notice</div>
+        </div>
+      </div>
     </main>
   );
 };

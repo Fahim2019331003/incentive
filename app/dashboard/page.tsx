@@ -1,18 +1,29 @@
-import { getTable } from '@/app/dashboard/getData';
-import Carousel from '../components/dashboard/Carousel';
+import getTableData from '../actions/getTableData';
 import Tabletest from '../components/dashboard/Tabletest';
+import Carousel from '../components/home/Carousel';
+
+interface dashboardTableData {
+  name: string;
+  title: string;
+  department: string;
+  journalName: string;
+  affiliatedPersons?: string[];
+}
 
 const Page = async () => {
-  const tableData = await getTable();
+  
 
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="pt-5">
-        <Carousel />
-      </div>
-
-      <div className="mt-20">
-        <Tabletest title={'Granted Incentives Report'} tableData={tableData} />
+    <main className="flex flex-col">
+      <div className="my-16">
+        <div className="mx-16">
+          <Carousel />
+          <div className="mt-20 min-h-screen">
+            <Tabletest
+              title={'Granted Incentives Report'}
+            />
+          </div>
+        </div>
       </div>
     </main>
   );
