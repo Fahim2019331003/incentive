@@ -11,6 +11,9 @@ import ToasterProvider from './providers/ToasterProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
+import { cn } from '@/lib/utils';
+import Layout from './components/Layout';
+
 export const metadata = {
   title: 'incentive web',
   description: 'this is a web app for incentive',
@@ -25,13 +28,15 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(inter.className)}>
         <NextProvider>
           <ToasterProvider />
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
+          <Layout>
           <div className="pt-24 xl:pt-16 ">{children}</div>
+          </Layout>
           <Footer />
         </NextProvider>
       </body>

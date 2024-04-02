@@ -5,10 +5,10 @@ import { getTable } from '@/app/monitor-application/getData'
 import Table from "@/app/components/monitor-application/Table"
 
 const RightContent = async () => {
-  const tableData = await getTable();
+  // const tableData = await getTable();
   return (
     <div>
-        <Table title={'Applications'} tableData={tableData} />
+        {/* <Table title={'Applications'} tableData={tableData} /> */}
       </div>
   )
 }

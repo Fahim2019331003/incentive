@@ -16,20 +16,15 @@ const items = [
 
 export default async function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="pt-5">
-        <Carousel />
-      </div>
-      <div className="flex">
-        {/* <div className="min-w-[220px] max-w-[220px] text-center ml-3">
-          jhshcjksdhjkhdjkcsdscdcsdcdscdscdcdscdcssdcscsdcsdcsdcsdcsdcsdcsdscddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </div> */}
-        <div>
-          <ul>
+    <main className="flex flex-col">
+      <div className="mt-16">
+        <div className="mx-16">
+          <Carousel />
+          <div>
             {items.map((item) => (
               <Card title={item.title} description={item.description} key={item.title}/>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </main>

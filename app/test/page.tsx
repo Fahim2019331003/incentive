@@ -1,37 +1,23 @@
-'use client';
-import axios from 'axios';
+"use client"
+import getTableData from '../actions/getTableData';
 
-const Page = () => {
-  const data = {
-    department: 'xyhusdbcuhbyz',
-    school: '123sdcsd4',
-    title: 'yusghccasdcdsihs',
-    qIndex: 'Q1',
-    PublishernameAndAddress: 'uysdfghisdcdscdhsbc',
-    volAndDate: '267821asdcd372',
-  };
+const page = async () => {
+  // const data = await getTableData();
+  // console.log(data);
 
-  const handleClick = async () => {
-    // console.log(data);
-    const res = await axios
-      .post('/api/application', {
-        data,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  const onClick=async()=>{
+    const data = await getTableData();
+    console.log(data);
+  }
   return (
-    <div className="min-h-screen mt-20">
-      <button type="button" onClick={() => handleClick()}>
-        HEEEEELLLLOOOO
-      </button>
-    </div>
+    <main className="flex flex-col">
+      <div className="m-16">
+        <div className="mt-20 min-h-screen">
+          <button onClick={onClick}>Click me pleaseeeee</button>
+        </div>
+      </div>
+    </main>
   );
 };
 
-export default Page;
+export default page;

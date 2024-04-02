@@ -1,8 +1,12 @@
 'use client';
+import checkApplication from '@/app/actions/checkApplication';
+import insertApplication from '@/app/actions/insertApplication';
 import { Button } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import FormDrop from './FormDrop';
+import FormEmail from './FormEmail';
 import FormInput from './FormInput';
 import FormMultiInput from './FormMultiInput';
 
@@ -37,12 +41,36 @@ const schoolFields = [
   'Social Sciences',
 ];
 
+const designationFields = ['Mr.', 'Ms.', 'Dr.', 'Mrs.'];
+
 const qIndexFields = ['Q1', 'Q2', 'Q3', 'Q4'];
 
+interface application {
+  applicantEmail: string;
+  department: string;
+  school: string;
+  journalName: string;
+  qIndex: string;
+  title: string;
+  affiliatedPersons: string[];
+  correspondingAuthor: string;
+  PublishernameAndAddress: string;
+  volAndDate: string;
+  awardDetails: string;
+  patentDetails: string;
+}
+
+interface result {
+  validity: boolean;
+  message: string;
+  affiliatedPersonsNames?: string;
+}
+
 const ApplyForm = () => {
-  const [name, setName] = useState('');
-  const [designation, setDesignation] = useState('');
-  const [dept, setDept] = useState('');
+  const router = useRouter();
+  // all states.
+  const [applicantEmail, setApplicantEmail] = useState('');
+  const [department, setDepartment] = useState('');
   const [school, setSchool] = useState('');
   const [journalName, setJournalName] = useState('');
   const [articleTitle, setArticleTitle] = useState('');
@@ -54,29 +82,41 @@ const ApplyForm = () => {
   const [awardDetail, setAwardDetails] = useState('');
   const [patentDetail, setPatentDetail] = useState('');
 
-  // const []
-
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(name);
-    console.log(designation);
-    console.log(journalName);
-    console.log(articleTitle);
-    console.log(correspondingAuthor);
-    console.log(nameAndAddress);
-    console.log(volumeDetail);
-    console.log(awardDetail);
-    console.log(patentDetail);
-    console.log(qIndex);
-    console.log(dept);
-    console.log(school);
-    console.log(affiliatePersons);
-    if (dept === '' || school === '' || qIndex === '') {
-      toast.error('Select All Fields');
-      console.log('dhukse');
-    }
-    else{
-      toast.success('Successfully Entered');
+
+    const Application: application = {
+      applicantEmail: applicantEmail,
+      department: department,
+      school: school,
+      journalName: journalName,
+      qIndex: qIndex,
+      title: articleTitle,
+      affiliatedPersons: affiliatePersons,
+      correspondingAuthor: correspondingAuthor,
+      PublishernameAndAddress: nameAndAddress,
+      volAndDate: volumeDetail,
+      awardDetails: awardDetail,
+      patentDetails: patentDetail,
+    };
+
+    try {
+      //checking if application is valid.
+      const result: result = await checkApplication(Application);
+      if (result.validity) {
+        //insert the application into database.
+        const res = await insertApplication(Application);
+        if (res !== null || res !== undefined) {
+          toast.success(result.message);
+          //redirect to another page.
+          router.push('/incentive');
+        }
+        else toast.error('Something occurred');
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -85,19 +125,31 @@ const ApplyForm = () => {
       className="min-w-7xl m-20 bg-gray-200 rounded-xl z-0"
     >
       <div className="pt-10">
-        <FormInput title={"Applicant's Name"} setInput={setName} />
-        <FormInput title={'Designation'} setInput={setDesignation} />
-        <FormDrop title={'Department'} options={deptFields} setKeys={setDept} />
+        <FormEmail title={"Applicant's Email"} setInput={setApplicantEmail} />
+
+        <FormDrop
+          title={'Department'}
+          options={deptFields}
+          setKeys={setDepartment}
+        />
         <FormDrop title={'School'} options={schoolFields} setKeys={setSchool} />
-        <FormInput title={'Name of the Journal'} setInput={setJournalName} />
-        <FormInput title={'Title of the Article'} setInput={setArticleTitle} />
+        <FormInput
+          title={'Name of the Journal'}
+          setInput={setJournalName}
+          isRequired={true}
+        />
+        <FormInput
+          title={'Title of the Article'}
+          setInput={setArticleTitle}
+          isRequired={true}
+        />
         {/* Dynamic input */}
         <FormMultiInput
           title={'Authors order with affliation as in the article'}
           setInput={setAffiliatePersons}
         />
 
-        <FormInput
+        <FormEmail
           title={'Name of the Corresponding Author'}
           setInput={setCorrespondingAuthor}
         />
@@ -109,16 +161,23 @@ const ApplyForm = () => {
         <FormInput
           title={'Name & Address of the Publisher'}
           setInput={setNameAndAddress}
+          isRequired={true}
         />
         <FormInput
           title={'Volume number with date'}
           setInput={setVolumeDetail}
+          isRequired={true}
         />
         <FormInput
           title={'Have you received any award/incentive for this article?'}
           setInput={setAwardDetails}
+          isRequired={false}
         />
-        <FormInput title={'Patent Detail'} setInput={setPatentDetail} />
+        <FormInput
+          title={'Patent Detail'}
+          setInput={setPatentDetail}
+          isRequired={false}
+        />
       </div>
       <div className="flex justify-center py-10">
         <Button color="primary" variant="shadow" type="submit" size="lg">

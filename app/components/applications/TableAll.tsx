@@ -1,6 +1,7 @@
 'use client';
 
 import { getSearchData } from '@/app/actions/getSearchData';
+import getTableData from '@/app/actions/getTableData';
 import {
   Input,
   Pagination,
@@ -14,7 +15,6 @@ import {
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SearchIcon } from './SearchIcon';
-import getTableData from '@/app/actions/getTableData';
 
 const columns = [
   {
@@ -47,29 +47,27 @@ const columns = [
   },
 ];
 
-const CustomTable = ({ title }) => {
+const CustomTable = () => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [datas, setDatas] = useState([]);
-  const [tableData ,setTableData] =useState([]);
+  const [tableData, setTableData] = useState([]);
   const hasSearchFilter = Boolean(search);
-  
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
-        const response:any = await getTableData();
-        
+        const response: any = await getTableData();
+
         setDatas(response);
         setTableData(response);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    }
+    };
     fetchData();
-    },[]);
+  }, []);
 
   useEffect(() => {
     const values = Array.from(selectedKeys);
@@ -83,10 +81,7 @@ const CustomTable = ({ title }) => {
 
   const filterItems = useMemo(async () => {
     if (hasSearchFilter) {
-      //need to change
-      //ekhan theke kaj shuru korbo in shaa Allah
-
-      const temp_data:any = await getSearchData(search);
+      const temp_data: any = await getSearchData(search);
       setDatas(temp_data);
     } else {
       setDatas(tableData);
@@ -164,58 +159,52 @@ const CustomTable = ({ title }) => {
   }, [page, datas]);
 
   return (
-    <div>
-      <div className="my-10">
-        <div className="text-3xl">{title}</div>
-      </div>
-
-      <div>
-        <div className="relative overflow-x-auto mb-10 mt-3">
-          <div className="mt-5 text-3xs">
-            {/* Table Rows */}
-            <Table
-              color={'primary'}
-              selectionMode="single"
-              aria-label="Example table with client side pagination"
-              topContent={topContent}
-              bottomContent={
-                <div className="flex w-full justify-center">
-                  <Pagination
-                    isCompact
-                    showControls
-                    showShadow
-                    color="primary"
-                    page={page}
-                    total={pages}
-                    onChange={(page) => setPage(page)}
-                  />
-                </div>
-              }
-              classNames={{
-                wrapper: 'min-h-[222px]',
-              }}
-              onSelectionChange={(e) => changeSelectionKeys(e)}
+    <div className="my-5">
+      <div className="relative overflow-x-auto mb-10 mt-3">
+        <div className="mt-5 text-3xs">
+          {/* Table Rows */}
+          <Table
+            color={'primary'}
+            selectionMode="single"
+            aria-label="Example table with client side pagination"
+            topContent={topContent}
+            bottomContent={
+              <div className="flex w-full justify-center">
+                <Pagination
+                  isCompact
+                  showControls
+                  showShadow
+                  color="primary"
+                  page={page}
+                  total={pages}
+                  onChange={(page) => setPage(page)}
+                />
+              </div>
+            }
+            classNames={{
+              wrapper: 'min-h-[222px]',
+            }}
+            onSelectionChange={(e) => changeSelectionKeys(e)}
+          >
+            <TableHeader columns={columns}>
+              {(column) => (
+                <TableColumn key={column.key}>{column.label}</TableColumn>
+              )}
+            </TableHeader>
+            <TableBody
+              items={items}
+              emptyContent={'No rows to display.'}
+              className="text-3xs"
             >
-              <TableHeader columns={columns}>
-                {(column) => (
-                  <TableColumn key={column.key}>{column.label}</TableColumn>
-                )}
-              </TableHeader>
-              <TableBody
-                items={items}
-                emptyContent={'No rows to display.'}
-                className="text-3xs"
-              >
-                {(item: any) => (
-                  <TableRow key={item.id} className="pt-10">
-                    {(columnKey) => (
-                      <TableCell>{renderCell(item, columnKey)}</TableCell>
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
+              {(item: any) => (
+                <TableRow key={item.id} className="pt-10">
+                  {(columnKey) => (
+                    <TableCell>{renderCell(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>

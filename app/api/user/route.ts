@@ -1,23 +1,19 @@
 import prisma from '@/app/libs/prismadb';
 import { NextResponse } from 'next/server';
 
-
+//gives a response with a valid email. otherwise returns error.
 
 export async function POST(request: Request) {
   try {
-    const data= await request.json();
+    const body = await request.json();
 
-    const { email } = data;
-    // console.log(email);
-    // return NextResponse.json(email);
+    const { email } = body.data;
 
     const user = await prisma.user.findFirst({
       where: {
-        email: email ,
+        email: email,
       },
     });
-
-    // console.log(user);
 
     if (!user) {
       return NextResponse.json({ error: 'true' });
