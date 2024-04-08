@@ -17,6 +17,7 @@ export async function POST(request: Request) {
     volAndDate,
     awardDetails,
     patentDetails,
+    totalAuthors,
   } = body.data;
 
   try {
@@ -32,6 +33,7 @@ export async function POST(request: Request) {
         awardDetails,
         patentDetails,
         affiliatedPersons,
+        totalAuthors,
         applicant: {
           connect: {
             email: applicantEmail as string,
@@ -51,4 +53,3 @@ export async function POST(request: Request) {
     return NextResponse.json(err.message);
   }
 }
-

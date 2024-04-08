@@ -3,7 +3,7 @@ import { isValidUser } from './checkApplication';
 
 export default async function getTableData() {
   const res = await axios
-    .post('/api/allApplications', {})
+    .post('/api/assignedApplications', {})
     .then(async (res) => {
       const data = res.data;
       const tableData = await Promise.all(

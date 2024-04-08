@@ -13,6 +13,7 @@ interface application {
   volAndDate: string;
   awardDetails: string;
   patentDetails: string;
+  totalAuthors: string;
 }
 
 export default async function checkApplication(application: application) {
@@ -29,9 +30,24 @@ export default async function checkApplication(application: application) {
     volAndDate,
     awardDetails,
     patentDetails,
+    totalAuthors,
   } = application;
 
-
+  if (
+    parseInt(totalAuthors) <= 0 ||
+    parseInt(totalAuthors) < affiliatedPersons.length
+  ) {
+    return {
+      validity: false,
+      message: 'Select total author numbers correctly',
+    };
+  }
+  if (affiliatedPersons.length == 0) {
+    return {
+      validity: false,
+      message: "Affiliated persons can't be zero",
+    };
+  }
   //any blank fields check
   if (department === '') {
     return {
@@ -88,7 +104,6 @@ export default async function checkApplication(application: application) {
     };
   }
 
-  
   //all true. application is good to go
   return {
     validity: true,

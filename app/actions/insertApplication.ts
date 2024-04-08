@@ -13,6 +13,7 @@ export interface application {
   volAndDate: string;
   awardDetails: string;
   patentDetails: string;
+  totalAuthors:string;
 }
 
 export default async function insertApplication(data: application) {

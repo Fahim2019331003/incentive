@@ -3,7 +3,7 @@ import { isValidUser } from './checkApplication';
 
 export default async function getTableData() {
   const res = await axios
-    .post('/api/allApplications', {})
+    .post('/api/acceptedApplications', {})
     .then(async (res) => {
       const data = res.data;
       const tableData = await Promise.all(
@@ -24,9 +24,9 @@ export default async function getTableData() {
             journalName: item.journalName,
             name: item.applicant.name,
             affiliatedPersons: names,
-            volAndDate:item.volAndDate,
-            status:item.status,
-            qIndex:item.qIndex,
+            volAndDate: item.volAndDate,
+            status: item.status,
+            qIndex: item.qIndex,
           };
         })
       );

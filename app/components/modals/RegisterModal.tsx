@@ -1,4 +1,5 @@
 'use client';
+import { isValidUser } from '@/app/actions/checkApplication';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import axios from 'axios';
@@ -35,20 +36,28 @@ const RegisterModal = () => {
 
   //   pore submit handler call field values er data gula backend e pathaitesi
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-    axios
-      .post('/api/register', data)
-      .then(() => {
-        registerModal.onClose();
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error('something went wrong');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+
+    const user: any = await isValidUser(data.email);
+    if (user?.data?.name) {
+      toast.error('Email already exists');
+    } else {
+      await axios
+        .post('/api/register', data)
+        .then(() => {
+          registerModal.onClose();
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error('something went wrong');
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+    registerModal.onClose();
+    setIsLoading(false);
   };
 
   const toggle = useCallback(() => {

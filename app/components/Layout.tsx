@@ -12,9 +12,7 @@ const Layout = ({ children }) => {
       <div className="overflow-y-auto pt-24 border-r-1">
         <SideNav isCollapsed={isCollapsed} setCollapsed={setCollapsed} />
       </div>
-      <div className={'flex-1 overflow-y-auto'}>
-        {children}
-      </div>
+      <div className={'flex-1 overflow-y-auto'}>{children}</div>
     </div>
   );
 };

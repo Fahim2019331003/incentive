@@ -18,6 +18,17 @@ export async function POST(request: Request) {
       hashedPassword,
     },
   });
+  const incentive = await prisma.incentive.create({
+    data: {
+      totalPaid: "0",
+      totalPayment: "0",
+      incentiveFor: {
+        connect: {
+          id: user.id,
+        },
+      },
+    },
+  });
 
   // next resposne theke return kora lagbe
 

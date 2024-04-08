@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import FormDrop from './FormDrop';
 import FormEmail from './FormEmail';
 import FormInput from './FormInput';
+import FormInputInt from './FormInputInt';
 import FormMultiInput from './FormMultiInput';
 
 const deptFields = [
@@ -58,6 +59,7 @@ interface application {
   volAndDate: string;
   awardDetails: string;
   patentDetails: string;
+  totalAuthors: string;
 }
 
 interface result {
@@ -81,6 +83,7 @@ const ApplyForm = () => {
   const [volumeDetail, setVolumeDetail] = useState('');
   const [awardDetail, setAwardDetails] = useState('');
   const [patentDetail, setPatentDetail] = useState('');
+  const [totalAuthors, setTotalAuthors] = useState('');
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -98,21 +101,26 @@ const ApplyForm = () => {
       volAndDate: volumeDetail,
       awardDetails: awardDetail,
       patentDetails: patentDetail,
+      totalAuthors: totalAuthors,
     };
+
+    console.log(totalAuthors);
 
     try {
       //checking if application is valid.
+      const toastId = toast.loading('Loading...');
       const result: result = await checkApplication(Application);
       if (result.validity) {
         //insert the application into database.
         const res = await insertApplication(Application);
+        toast.dismiss(toastId);
         if (res !== null || res !== undefined) {
           toast.success(result.message);
           //redirect to another page.
           router.push('/incentive');
-        }
-        else toast.error('Something occurred');
+        } else toast.error('Something occurred');
       } else {
+        toast.dismiss(toastId);
         toast.error(result.message);
       }
     } catch (error) {
@@ -143,14 +151,21 @@ const ApplyForm = () => {
           setInput={setArticleTitle}
           isRequired={true}
         />
+        <FormInputInt
+          title={
+            'Total number of authors of this article  (Including non-SUST authors)'
+          }
+          setInput={setTotalAuthors}
+          isRequired={true}
+        />
         {/* Dynamic input */}
         <FormMultiInput
-          title={'Authors order with affliation as in the article'}
+          
           setInput={setAffiliatePersons}
         />
 
         <FormEmail
-          title={'Name of the Corresponding Author'}
+          title={'Email of the Corresponding Author'}
           setInput={setCorrespondingAuthor}
         />
         <FormDrop

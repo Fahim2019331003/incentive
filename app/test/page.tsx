@@ -1,23 +1,16 @@
-"use client"
-import getTableData from '../actions/getTableData';
+import CustomRadioGroup from '../components/applications/CustomRadioGroup';
 
-const page = async () => {
-  // const data = await getTableData();
-  // console.log(data);
-
-  const onClick=async()=>{
-    const data = await getTableData();
-    console.log(data);
-  }
+export default function App() {
   return (
     <main className="flex flex-col">
       <div className="m-16">
         <div className="mt-20 min-h-screen">
-          <button onClick={onClick}>Click me pleaseeeee</button>
+        {/* <CustomRadioGroup /> */}
         </div>
       </div>
     </main>
+      
+        
+      
   );
-};
-
-export default page;
+}

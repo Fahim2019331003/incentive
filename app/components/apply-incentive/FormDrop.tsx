@@ -33,7 +33,7 @@ const FormDrop = ({ title, options, setKeys }) => {
           <DropdownTrigger>
             <Button
               variant="bordered"
-              className="capitalize bg-neutral-100 min-w-[315px]"
+              className="capitalize sm:min-w-[150px] md:min-w-[250px] bg-neutral-100 lg:min-w-[350px]"
             >
               {selectedKeys.length == 0 ? (
                 <span>-- Select One --</span>

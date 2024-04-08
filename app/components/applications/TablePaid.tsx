@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Button,
   Input,
   Pagination,
   Table,
@@ -12,7 +13,8 @@ import {
 } from '@nextui-org/react';
 
 import { getSearchData } from '@/app/actions/getSearchData';
-import getTableData from '@/app/actions/getTableData';
+import getTablePaidData from '@/app/actions/getTablePaidData';
+
 import {
   Tooltip,
   TooltipContent,
@@ -27,9 +29,8 @@ import {
   EllipsisVertical,
   LoaderCircle,
 } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Loader from '../Loader';
 import { SearchIcon } from './SearchIcon';
@@ -73,8 +74,9 @@ const columns = [
   },
 ];
 
-const TableAll = () => {
+const TablePaid = () => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+  const [selectedKeysValues, setSelectedKeysValues] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [datas, setDatas] = useState([]);
@@ -82,10 +84,12 @@ const TableAll = () => {
   const [loading, setLoading] = useState(1);
   const hasSearchFilter = Boolean(search);
 
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response: any = await getTableData();
+        const response: any = await getTablePaidData();
 
         setDatas(response);
         setTableData(response);
@@ -98,10 +102,14 @@ const TableAll = () => {
   }, []);
 
   useEffect(() => {
-    const values = Array.from(selectedKeys);
+    // console.log(selectedKeysValues);
+  }, [selectedKeysValues]);
 
-    console.log(values);
-  }, [selectedKeys]);
+  const handleSelectionChange = (newSelectedKeys) => {
+    setSelectedKeys(newSelectedKeys);
+    setSelectedKeysValues(Array.from(newSelectedKeys));
+    // setSelectedKeysValues(Array.from(newSelectedKeys));
+  };
 
   const changeSelectionKeys = (e) => {
     setSelectedKeys(e);
@@ -109,7 +117,7 @@ const TableAll = () => {
 
   const filterItems = useMemo(async () => {
     if (hasSearchFilter) {
-      const tableType = 'all';
+      const tableType = 'paid';
       const temp_data: any = await getSearchData(search, tableType);
       setDatas(temp_data);
     } else {
@@ -158,7 +166,7 @@ const TableAll = () => {
         <div className="flex-1 flex justify-end"></div>
       </div>
     );
-  }, []);
+  }, [selectedKeys]);
 
   //rendering each cell
   const renderCell = useCallback((user, columnKey) => {
@@ -168,18 +176,12 @@ const TableAll = () => {
         return (
           <div className="flex flex-col items-center justify-center min-h-[60px] max-w-[150px] text-sm">
             {user.affiliatedPersons.map((person) => {
-              return <div key={person}>{person}</div>;
+              return (
+                <div key={person} className="text-center">
+                  {person}
+                </div>
+              );
             })}
-          </div>
-        );
-      case 'actions':
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Link href={`/applications/${user.id}`}>
-              <Button className="rounded-full" variant="link">
-                <EllipsisVertical size={20} />
-              </Button>
-            </Link>
           </div>
         );
       case 'status':
@@ -219,6 +221,16 @@ const TableAll = () => {
             </Tooltip>
           </TooltipProvider>
         );
+      case 'actions':
+        return (
+          <div className="relative flex justify-end items-center gap-2">
+            <Link href={`/applications/${user.id}`}>
+              <Button className="rounded-full" isIconOnly variant="light">
+                <EllipsisVertical size={20} />
+              </Button>
+            </Link>
+          </div>
+        );
       default:
         return (
           <div className="max-w-[150px] text-sm text-center">{cellValue}</div>
@@ -246,6 +258,7 @@ const TableAll = () => {
               selectionMode="single"
               aria-label="Example table with client side pagination"
               topContent={topContent}
+              onSelectionChange={handleSelectionChange}
               bottomContent={
                 <div className="flex w-full justify-center">
                   <Pagination
@@ -262,7 +275,7 @@ const TableAll = () => {
               classNames={{
                 wrapper: 'min-h-[222px]',
               }}
-              onSelectionChange={(e) => changeSelectionKeys(e)}
+              //   onSelectionChange={(e) => changeSelectionKeys(e)}
             >
               <TableHeader columns={columns}>
                 {(column) => (
@@ -292,4 +305,4 @@ const TableAll = () => {
   );
 };
 
-export default TableAll;
+export default TablePaid;
