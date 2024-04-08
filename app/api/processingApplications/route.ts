@@ -4,8 +4,11 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const data = await prisma.application.findMany({
+      where: {
+        status: "PROCESSING",
+      },
       select: {
-        id:true,
+        id: true,
         title: true,
         department: true,
         journalName: true,
@@ -15,9 +18,9 @@ export async function POST(request: Request) {
           },
         },
         affiliatedPersons: true,
-        volAndDate:true,
-        status:true,
-        qIndex:true,
+        volAndDate: true,
+        status: true,
+        qIndex: true,
       },
     });
     return NextResponse.json(data);

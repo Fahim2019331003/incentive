@@ -4,7 +4,7 @@ import { Button, Input } from '@nextui-org/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-const FormMultiInput = ({ title, setInput }) => {
+const FormMultiInput = ({  setInput }) => {
   const [textFields, setTextFields] = useState([
     { id: 0, value: '', name: '', isValid: false },
   ]);
@@ -79,7 +79,14 @@ const FormMultiInput = ({ title, setInput }) => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="basis-1/2 text-right px-10 py-2">{title}:</div>
+      <div className="basis-1/2 text-right px-10 py-2">
+        <div >
+        Authors order with affliation as in the article.
+        </div>
+        <div className='mt-2'>
+        (The first one will be considered as First Author):
+        </div>
+      </div>
       <div className="basis-1/2 px-10 py-2">
         {textFields.map(({ id, name, isValid }, index) => (
           <div className=" flex items-center py-2" key={id}>

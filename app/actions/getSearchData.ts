@@ -1,16 +1,21 @@
 import axios from 'axios';
 import { isValidUser } from './checkApplication';
 
-export const getSearchData = async (search) => {
+export const getSearchData = async (search,tableType) => {
   try {
+
+    const data={
+      queryText:search,
+      tableType
+    }
     const tableSearchData = await axios
       .post('/api/search-data', {
-        data: search,
+        data,
       })
       .then(async (res) => {
-        const data = res.data;
+        const responseData = res.data;
         const tableData = await Promise.all(
-          data.map(async (item) => {
+          responseData.map(async (item) => {
             const persons = item.affiliatedPersons;
             // console.log(persons);
             const names = await Promise.all(
@@ -27,6 +32,9 @@ export const getSearchData = async (search) => {
               journalName: item.journalName,
               name: item.applicant.name,
               affiliatedPersons: names,
+              volAndDate:item.volAndDate,
+              status:item.status,
+              qIndex:item.qIndex,
             };
           })
         );

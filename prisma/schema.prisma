@@ -59,8 +59,10 @@ model User {
   // asAffiliated Application[] @relation("AffiliatedPerson")
 }
 
+//All Users have one unique Incentive and One Incentive can have multiple Payments.
+
 model Application {
-  id                      String @id @default(auto()) @map("_id") @db.ObjectId
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
   department              String
   school                  String
   title                   String
@@ -68,22 +70,21 @@ model Application {
   qIndex                  QIndex
   PublishernameAndAddress String
   volAndDate              String
+  totalAuthors            String
+  awardDetails            String?
+  patentDetails           String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  status                  Status?  @default(PENDING)
 
-  awardDetails  String?
-  patentDetails String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  status        Status?  @default(PENDING)
-
-  correspondingAuthorId String?      @db.ObjectId
-  correspondingAuthor   User?        @relation("CorrespondingAuthor", fields: [correspondingAuthorId], references: [id])
-  applicantId           String?      @db.ObjectId
-  applicant             User?        @relation("Applicant", fields: [applicantId], references: [id])
-  evaluations           Evaluation[] @relation("Evaluation")
+  correspondingAuthorId String?  @db.ObjectId
+  correspondingAuthor   User?    @relation("CorrespondingAuthor", fields: [correspondingAuthorId], references: [id])
+  applicantId           String?  @db.ObjectId
+  applicant             User?    @relation("Applicant", fields: [applicantId], references: [id])
   affiliatedPersons     String[]
   affiliatedPersonsName String[]
   updatedBy             String[]
-  payments              Payment[]    @relation("ApplicationFor")
+  // payments              Payment[] @relation("ApplicationFor")
 }
 
 model Notification {
@@ -102,40 +103,41 @@ model Evaluation {
   feedback String?
   status   Boolean?
 
-  evaluationId  String       @db.ObjectId
-  evaluatedBy   User?        @relation("EvaluationBy", fields: [evaluationId], references: [id])
-  applicationId String       @db.ObjectId
-  evaluation    Application? @relation("Evaluation", fields: [evaluationId], references: [id])
+  evaluationId  String? @db.ObjectId
+  evaluatedBy   User?   @relation("EvaluationBy", fields: [evaluationId], references: [id])
+  applicationId String?
 }
 
 model Incentive {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  totalPayment String?
-  totalPaid    String?
-
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  totalPayment   String?
+  totalPaid      String?
   incentiveForId String?   @unique @db.ObjectId
   incentiveFor   User?     @relation("Incentive", fields: [incentiveForId], references: [id])
   payments       Payment[] @relation("Payments")
-
-  // @@unique([incentiveForId, applicationId])
 }
 
 model Payment {
-  id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  amount           String?
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  incentiveToId    String       @db.ObjectId
-  incentiveTo      Incentive?   @relation("Payments", fields: [incentiveToId], references: [id])
-  applicationForId String       @db.ObjectId
-  application      Application? @relation("ApplicationFor", fields: [applicationForId], references: [id])
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  amount        String?
+  type          PaymentType?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  incentiveId   String?      @db.ObjectId
+  incentive     Incentive?   @relation("Payments", fields: [incentiveId], references: [id])
+  applicationId String?
+  userId        String?
+  // applicationForId String?       @db.ObjectId
+  // application      Application? @relation("ApplicationFor", fields: [applicationForId], references: [id])
 }
 
 enum Status {
   PENDING
   PROCESSING
+  ASSIGNED
   ACCEPTED
   REJECTED
+  PAID
 }
 
 enum QIndex {
@@ -150,4 +152,11 @@ enum Role {
   ADMIN
   COORDINATOR
   EVALUATOR
+}
+
+enum PaymentType {
+  COMMON
+  FIRSTAUTHOR
+  CORRESPONDING
+  BOTH
 }
