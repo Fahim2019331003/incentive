@@ -30,7 +30,7 @@ const page = () => {
         </div>
         <div className="mb-20 flex justify-center align-center">
           <Link href={'/apply-incentive'}>
-            <div className="flex items-center px-4 py-2 font-bold shadow-md hover:bg-green-300 focus:outline-none">
+            <div className="flex items-center px-4 py-2 border border-gray-500 font-bold shadow-md hover:bg-green-300 focus:outline-none">
               <div className="max-w-1">Apply For Incentive</div>
               <div>
                 <Image src={'/or.png'} width={50} height={50} alt={'or'} />
