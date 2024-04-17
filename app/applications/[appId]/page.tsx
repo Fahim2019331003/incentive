@@ -4,7 +4,6 @@ import React from 'react'
 const applicationDetails = ({params}) => {
     
   return (
-
     <main className="flex flex-col">
       <div className="m-16">
         <div className="mt-20 min-h-screen">

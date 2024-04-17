@@ -199,17 +199,16 @@ const coordinatorLinks = [
 
 const SideNav = ({ isCollapsed, setCollapsed }) => {
   return (
-    
-      <div className={isCollapsed ? 'w-[80px]' : 'w-[224px]'}>
+     <div className={isCollapsed ? 'w-[80px]' : 'w-[260px]'}>
         <div className="flex justify-end">
-          <Button
+          {/* <Button
             onClick={() => setCollapsed(!isCollapsed)}
             variant="secondary"
             size="icon"
             className="rounded-full p-2"
           >
             <ChevronsLeftRight />
-          </Button>
+          </Button> */}
         </div>
         <Nav
           isCollapsed={isCollapsed}

@@ -3,6 +3,31 @@ import IncentiveTable from '../components/track-funds/IncentiveTable';
 
 const page = () => {
   return (
+    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+      <div className="flex justify-center max-w-7xl mx-auto pb-4">
+        <div className="flex justify-center pt-8 pb-4 text-3xl font-semibold max-w-7xl">
+          <h1>Track Incentive (Experimental)</h1>
+        </div>
+      </div>
+
+      <Card>
+        <CardBody>
+          This Table tracks all kind of incentives.
+          <IncentiveTable />
+        </CardBody>
+      </Card>
+    </main>
+  );
+};
+
+export default page;
+
+/*
+import { Card, CardBody } from '@nextui-org/react';
+import IncentiveTable from '../components/track-funds/IncentiveTable';
+
+const page = () => {
+  return (
     <main className="flex flex-col">
       <div className="my-16">
         <div className="mx-16">
@@ -22,3 +47,4 @@ const page = () => {
 };
 
 export default page;
+*/

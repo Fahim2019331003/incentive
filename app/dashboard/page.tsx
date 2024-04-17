@@ -1,3 +1,28 @@
+import Tabletest from '../components/dashboard/Tabletest';
+import Carousel from '../components/home/Carousel';
+
+interface dashboardTableData {
+  name: string;
+  title: string;
+  department: string;
+  journalName: string;
+  affiliatedPersons?: string[];
+}
+
+const Page = async () => {
+  return (
+    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+      <Carousel />
+      <div className="mt-20 min-h-screen">
+        <Tabletest title={'Granted Incentives Report'} />
+      </div>
+    </main>
+  );
+};
+
+export default Page;
+
+/*
 import getTableData from '../actions/getTableData';
 import Tabletest from '../components/dashboard/Tabletest';
 import Carousel from '../components/home/Carousel';
@@ -30,3 +55,6 @@ const Page = async () => {
 };
 
 export default Page;
+
+
+*/
