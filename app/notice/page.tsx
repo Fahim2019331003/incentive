@@ -5,11 +5,11 @@ import { noticeData } from './data';
 
 export default async function Home() {
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+    <main className="min-h-screen mr-8 xl:pt-14">
       <Carousel />
 
       <div className="flex justify-center">
-        <div className="bg-gray-100 rounded-xl mt-16 py-10 w-[108rem]">
+        <div className="bg-gray-100 rounded-xl mt-16 py-10">
           <div className="flex flex-col justify-around">
             <div className="text-4xl font-semibold text-center px-28 w-7xl">
               Notice Archive

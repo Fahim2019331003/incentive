@@ -6,11 +6,11 @@ import { listData } from './data';
 
 export default async function Home() {
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+    <main className="min-h-screen mr-8 xl:pt-14">
       <Carousel />
 
       <div className="flex justify-center">
-        <div className="bg-gray-100 rounded-xl mt-16 py-10 w-[108rem]">
+        <div className="bg-gray-100 rounded-xl mt-16 py-10">
           <div className="flex flex-col justify-around">
             <div className="text-4xl font-semibold text-center px-28 w-7xl">
             {'শাবিপ্রবি\'র শিক্ষকবৃন্দের আন্তর্জাতিক জার্নালে প্রবন্ধ প্রকাশের জন্য আর্থিক প্রণোদনা প্রাপ্তির শর্তাবলী'}

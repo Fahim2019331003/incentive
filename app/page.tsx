@@ -16,7 +16,7 @@ const items = [
 
 export default async function Home() {
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+    <main className="min-h-screen mr-8 xl:pt-14 w-full">
       <Carousel />
       <div>
         {items.map((item) => (

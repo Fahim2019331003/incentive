@@ -42,7 +42,7 @@ const Page = () => {
 
   return (
     // Application Id and edit icon
-    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+    <main className="min-h-screen mr-8 xl:pt-14 w-[80rem]">
       <div className="flex max-w-5xl mx-auto">
         <div className="mt-6 flex-1 flex justify-start">
           <div className="font-bold text-2xl w-48">Application Id:</div>

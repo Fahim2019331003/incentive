@@ -11,7 +11,7 @@ interface dashboardTableData {
 
 const Page = async () => {
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+    <main className="min-h-screen mr-8 xl:pt-14 w-[80rem]">
       <Carousel />
       <div className="mt-20 min-h-screen">
         <Tabletest title={'Granted Incentives Report'} />

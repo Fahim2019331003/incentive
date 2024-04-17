@@ -2,7 +2,7 @@ import ApplicationTab from '../components/applications/ApplicationTab';
 
 const page = () => {
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+    <main className="min-h-screen mr-8 xl:pt-14">
       <div className="">
         <div className=" min-h-screen">
           <ApplicationTab/>
