@@ -1,7 +1,7 @@
 const page = () => {
   return (
-    <main className="min-h-screen px-5 xl:px-10 xl:pt-10">
-      <div className="flex justify-center max-w-7xl mx-auto">
+    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+      <div className="flex justify-center max-w-7xl mx-auto pb-4">
         <div className="flex justify-center pt-8 pb-4 text-3xl font-semibold max-w-7xl">
           <h1>New Notice</h1>
         </div>

@@ -54,13 +54,16 @@ const Carousel = () => {
   };
 
   return (
-    <div className="w-screen h-[550px]  m-auto  relative group">
+    <div className="w-[108rem] h-[450px]  m-auto">
       <div
         style={{ backgroundImage: `url(${items[currentIndex].address})` }}
         className="w-full h-full bg-center bg-cover duration-500"
       >
         <div className="top-1/2 left-1/2 transform  text-white text-8xl p-4 rounded-lg">
-          SUST Research Center
+          SUST
+        </div>
+        <div className="top-1/2 left-1/2 transform  text-white text-8xl p-4 rounded-lg">
+          Research Center
         </div>
       </div>
       {/* Left Arrow */}

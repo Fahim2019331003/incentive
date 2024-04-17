@@ -9,7 +9,7 @@ const imageStyle = {
 
 const Page = () => {
   return (
-    <main className="min-h-screen px-5 xl:px-10 xl:pt-10">
+    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
       <div className="flex items-center m-10 max-w-6xl mx-auto">
         <ProfileImage />
 

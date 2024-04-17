@@ -1,3 +1,51 @@
+import Carousel from '../components/home/Carousel';
+import AddNewButton from '../components/notice/addnewbutton';
+import NoticeItem from '../components/notice/noticeItem';
+import { noticeData } from './data';
+
+export default async function Home() {
+  return (
+    <main className="min-h-screen mr-8 xl:pt-14 w-[108rem]">
+      <Carousel />
+
+      <div className="flex justify-center">
+        <div className="bg-gray-100 rounded-xl mt-16 py-10 w-[108rem]">
+          <div className="flex flex-col justify-around">
+            <div className="text-4xl font-semibold text-center px-28 w-7xl">
+              Notice Archive
+            </div>
+
+            <div>
+              <AddNewButton />
+            </div>
+
+            <div className="flex justify-center pt-2">
+              <div className="bg-gray-100 rounded-xl">
+                <div className="flex flex-col justify-around">
+                  <div className="px-15">
+                    <ol>
+                      {noticeData.map((item, index) => (
+                        <NoticeItem
+                          data={item.data}
+                          key={index}
+                          day={item.day}
+                          month={item.month}
+                          year={item.year}
+                        />
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+/*
 import AddNewButton from '../components/notice/addnewbutton';
 import NoticeItem from '../components/notice/noticeItem';
 import { noticeData } from './data';
@@ -5,9 +53,9 @@ import { noticeData } from './data';
 
 const page = () => {
   return (
-    <main className="min-h-screen px-5 xl:px-10 xl:pt-10">
-      <div className="flex justify-center max-w-7xl mx-auto">
-        <div className="flex justify-center pt-8 pb-4 text-3xl font-semibold max-w-7xl">
+    <main className="min-h-screen xl:px-10 xl:pt-10 border border-black">
+      <div className="flex justify-center max-w-full mx-auto">
+        <div className="flex justify-center pt-4 pb-4 text-3xl font-semibold max-w-7xl border border-black">
           <h1>Notice Archive</h1>
         </div>
       </div>
@@ -38,3 +86,4 @@ const page = () => {
 };
 
 export default page;
+*/

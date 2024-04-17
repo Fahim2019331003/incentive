@@ -1,6 +1,7 @@
 'use client';
 
 import { getSearchData } from '@/app/actions/getSearchData';
+import getTableData from '@/app/actions/getTableData';
 import {
   Input,
   Pagination,
@@ -13,9 +14,8 @@ import {
 } from '@nextui-org/react';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { SearchIcon } from './SearchIcon';
-import getTableData from '@/app/actions/getTableData';
 import Loader from '../Loader';
+import { SearchIcon } from './SearchIcon';
 
 const columns = [
   {
@@ -53,25 +53,23 @@ const CustomTable = ({ title }) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [datas, setDatas] = useState([]);
-  const [tableData ,setTableData] =useState([]);
+  const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(1);
   const hasSearchFilter = Boolean(search);
-  
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
-        const response:any = await getTableData();
+        const response: any = await getTableData();
         setDatas(response);
         setTableData(response);
         setLoading(0);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    }
+    };
     fetchData();
-    },[]);
+  }, []);
 
   useEffect(() => {
     const values = Array.from(selectedKeys);
@@ -85,9 +83,8 @@ const CustomTable = ({ title }) => {
 
   const filterItems = useMemo(async () => {
     if (hasSearchFilter) {
-      
-      const tableType="all";
-      const temp_data:any = await getSearchData(search,tableType);
+      const tableType = 'all';
+      const temp_data: any = await getSearchData(search, tableType);
       setDatas(temp_data);
     } else {
       setDatas(tableData);
@@ -166,59 +163,59 @@ const CustomTable = ({ title }) => {
 
   return (
     <div>
-      <div className="my-10">
-        <div className="text-3xl">{title}</div>
+      <div className="text-4xl font-semibold text-center px-28 w-7xl">
+        {title}
       </div>
 
       <div>
-        <div className="relative overflow-x-auto mb-10 mt-3">
+        <div className="relative overflow-x-auto mb-10 mt-3 ">
           <div className="mt-5 text-3xs">
             {/* Table Rows */}
             {loading ? (
-            <Loader />
-          ) : (
-            <Table
-              color={'primary'}
-              selectionMode="single"
-              aria-label="Example table with client side pagination"
-              topContent={topContent}
-              bottomContent={
-                <div className="flex w-full justify-center">
-                  <Pagination
-                    isCompact
-                    showControls
-                    showShadow
-                    color="primary"
-                    page={page}
-                    total={pages}
-                    onChange={(page) => setPage(page)}
-                  />
-                </div>
-              }
-              classNames={{
-                wrapper: 'min-h-[222px]',
-              }}
-              onSelectionChange={(e) => changeSelectionKeys(e)}
-            >
-              <TableHeader columns={columns}>
-                {(column) => (
-                  <TableColumn key={column.key}>{column.label}</TableColumn>
-                )}
-              </TableHeader>
-              <TableBody
-                items={items}
-                emptyContent={'No rows to display.'}
-                className="text-3xs"
+              <Loader />
+            ) : (
+              <Table
+                color={'primary'}
+                selectionMode="single"
+                aria-label="Example table with client side pagination"
+                topContent={topContent}
+                bottomContent={
+                  <div className="flex w-full justify-center">
+                    <Pagination
+                      isCompact
+                      showControls
+                      showShadow
+                      color="primary"
+                      page={page}
+                      total={pages}
+                      onChange={(page) => setPage(page)}
+                    />
+                  </div>
+                }
+                classNames={{
+                  wrapper: 'min-h-[222px]',
+                }}
+                onSelectionChange={(e) => changeSelectionKeys(e)}
               >
-                {(item: any) => (
-                  <TableRow key={item.id} className="pt-10">
-                    {(columnKey) => (
-                      <TableCell>{renderCell(item, columnKey)}</TableCell>
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+                <TableHeader columns={columns}>
+                  {(column) => (
+                    <TableColumn key={column.key}>{column.label}</TableColumn>
+                  )}
+                </TableHeader>
+                <TableBody
+                  items={items}
+                  emptyContent={'No rows to display.'}
+                  className="text-3xs"
+                >
+                  {(item: any) => (
+                    <TableRow key={item.id} className="pt-10">
+                      {(columnKey) => (
+                        <TableCell>{renderCell(item, columnKey)}</TableCell>
+                      )}
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             )}
           </div>
         </div>
