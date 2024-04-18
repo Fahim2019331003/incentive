@@ -16,16 +16,16 @@ const items = [
 
 export default async function Home() {
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-full">
-      <Carousel />
-      <div>
-        {items.map((item) => (
-          <Card
-            title={item.title}
-            description={item.description}
-            key={item.title}
-          />
-        ))}
+    <main className="flex flex-col">
+      <div className="mt-16">
+        <div className="mx-16">
+          <Carousel />
+          <div>
+            {items.map((item) => (
+              <Card title={item.title} description={item.description} key={item.title}/>
+            ))}
+          </div>
+        </div>
       </div>
     </main>
   );
