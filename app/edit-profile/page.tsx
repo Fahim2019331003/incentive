@@ -29,7 +29,7 @@ const Page = () => {
   };
 
   return (
-    <main className="min-h-screen mr-8 xl:pt-14 w-[80rem]">
+    <main className="min-h-screen xl:px-10 xl:pt-10">
       <div className="flex items-center m-10 max-w-6xl mx-auto">
         <ProfileImage />
 

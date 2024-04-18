@@ -54,16 +54,13 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex-grow h-[450px]  m-auto  relative group">
+    <div className="flex-grow h-[550px]  m-auto  relative group">
       <div
         style={{ backgroundImage: `url(${items[currentIndex].address})` }}
         className="w-full h-full bg-center bg-cover duration-500"
       >
-        <div className="top-1/2 left-1/2 transform  text-white text-8xl p-4 rounded-lg max-w-[1000px]">
-          SUST
-        </div>
-        <div className="top-1/2 left-1/2 transform  text-white text-8xl p-4 rounded-lg max-w-[1000px]">
-          Research Center
+        <div className="top-1/2 left-1/2 transform  text-white text-8xl p-4 rounded-lg max-w-[400px]">
+          SUST Research Center
         </div>
       </div>
       {/* Left Arrow */}
