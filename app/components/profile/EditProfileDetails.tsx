@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Loader from '../Loader';
-import EditProfileItem from '../edit-profile/EditProfileItem';
+import EditProfileItemDetails from '../edit-profile/EditProfileItemDetails';
 import ProfileImage from './ProfileImage';
 import ProfileItem from './ProfileItemDetails';
 
@@ -130,13 +130,13 @@ const EditProfileDetails = ({
                   <h1 className="font-bold text-3xl mb-4">
                     Personal Information
                   </h1>
-                  <EditProfileItem
+                  <EditProfileItemDetails
                     title="Name: "
                     value={updateData?.name}
                     onChange={(value) => handleChange('name', value)}
                   />
                   <ProfileItem title="Email: " info={updateData?.email} />
-                  <EditProfileItem
+                  <EditProfileItemDetails
                     title="Phone: "
                     value={updateData?.contact}
                     onChange={(value) => handleChange('contact', value)}
@@ -149,17 +149,17 @@ const EditProfileDetails = ({
                   <h1 className="font-bold text-3xl mb-4">
                     Professional Information
                   </h1>
-                  <EditProfileItem
+                  <EditProfileItemDetails
                     title="Department: "
                     value={updateData?.department}
                     onChange={(value) => handleChange('department', value)}
                   />
-                  <EditProfileItem
+                  <EditProfileItemDetails
                     title="School: "
                     value={updateData?.school}
                     onChange={(value) => handleChange('school', value)}
                   />
-                  <EditProfileItem
+                  <EditProfileItemDetails
                     title="Designation: "
                     value={updateData?.designation}
                     onChange={(value) => handleChange('designation', value)}
@@ -170,7 +170,7 @@ const EditProfileDetails = ({
               <div className="flex-col justify-center max-w-6xl mx-auto my-6">
                 <div className="my-2">
                   <h1 className="font-bold text-3xl mb-4">Bank Information</h1>
-                  <EditProfileItem
+                  <EditProfileItemDetails
                     title="Account No: "
                     value={updateData?.bankinfo}
                     onChange={(value) => handleChange('bankinfo', value)}

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-const EditProfileItem = ({ title, value, onChange }) => {
+const EditProfileItemDetails = ({ title, value, onChange }) => {
   const [info, setInfo] = useState(value);
 
   const handleInputChange = (e) => {
@@ -22,4 +22,4 @@ const EditProfileItem = ({ title, value, onChange }) => {
   );
 };
 
-export default EditProfileItem;
+export default EditProfileItemDetails;
