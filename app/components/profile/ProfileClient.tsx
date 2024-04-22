@@ -1,7 +1,7 @@
 'use client';
 import getProfileData from '@/app/actions/getProfileData';
 import Loader from '@/app/components/Loader';
-import EditProfile from '@/app/components/profile/EditProfile';
+import EditProfileDetails from '@/app/components/profile/EditProfileDetails';
 import UserProfile from '@/app/components/profile/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -36,7 +36,7 @@ const ProfileClient = ({ profileId, viewer }) => {
       ) : (
         <div>
           {isEditOpen ? (
-            <EditProfile
+            <EditProfileDetails
               user={datas}
               isEditOpen={isEditOpen}
               setEditOpen={setEditOpen}

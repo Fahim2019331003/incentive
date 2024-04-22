@@ -1,7 +1,7 @@
 'use client';
 
-import ProfileImage from '../../components/profile/image';
-import ProfileItem from './ProfileItem';
+import ProfileImage from './ProfileImage';
+import ProfileItemDetails from './ProfileItemDetails';
 
 import { Button, Card, CardBody } from '@nextui-org/react';
 import Image from 'next/image';
@@ -91,9 +91,9 @@ const UserProfile = ({ user, isEditOpen, setEditOpen, changed, viewer }) => {
                   <h1 className="font-bold text-3xl mb-4 ">
                     Personal Information
                   </h1>
-                  <ProfileItem title="Name: " info={profileData?.name} />
-                  <ProfileItem title="Email: " info={profileData?.email} />
-                  <ProfileItem title="Phone: " info={profileData?.contact} />
+                  <ProfileItemDetails title="Name: " info={profileData?.name} />
+                  <ProfileItemDetails title="Email: " info={profileData?.email} />
+                  <ProfileItemDetails title="Phone: " info={profileData?.contact} />
                 </div>
               </div>
 
@@ -102,12 +102,12 @@ const UserProfile = ({ user, isEditOpen, setEditOpen, changed, viewer }) => {
                   <h1 className="font-bold text-3xl mb-4">
                     Professional Information
                   </h1>
-                  <ProfileItem
+                  <ProfileItemDetails
                     title="Department: "
                     info={profileData?.department}
                   />
-                  <ProfileItem title="School: " info={profileData?.school} />
-                  <ProfileItem
+                  <ProfileItemDetails title="School: " info={profileData?.school} />
+                  <ProfileItemDetails
                     title="Designation: "
                     info={profileData?.designation}
                   />
@@ -117,7 +117,7 @@ const UserProfile = ({ user, isEditOpen, setEditOpen, changed, viewer }) => {
               <div className="flex-col justify-center max-w-6xl mx-auto my-6">
                 <div className="my-2">
                   <h1 className="font-bold text-3xl mb-4">Bank Information</h1>
-                  <ProfileItem
+                  <ProfileItemDetails
                     title="Account No: "
                     info={profileData?.bankinfo}
                   />

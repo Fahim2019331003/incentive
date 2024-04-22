@@ -119,184 +119,183 @@ const ApplicationDetails = ({
       <div className="text-3xl mb-10">Application Details Page</div>
 
       <Card className="pt-5 pb-10">
-      <CardBody>
-        <div className="overflow-hidden">
-          <div className="flex flex-col max-w-5xl mx-auto">
-            <div className="flex-1 flex justify-start">
-              <div className="font-bold text-2xl w-48">Application Id:</div>
-              <div className="flex items-center">{applicationDetails.id}</div>
-            </div>
-            <div className="flex-1 flex justify-start">
-              <div className="font-bold text-2xl w-48">Status:</div>
-              <div className="flex items-center">
-                {applicationDetails.status}
+        <CardBody>
+          <div className="overflow-hidden">
+            <div className="flex flex-col max-w-5xl mx-auto">
+              <div className="flex-1 flex justify-start">
+                <div className="font-bold text-2xl w-48">Application Id:</div>
+                <div className="flex items-center">{applicationDetails.id}</div>
               </div>
-            </div>
-            <div className="flex-1">
-              <div className="flex justify-end items-center pt-4">
-                <div className="flex items-center justify-center ">
-                  {user.role === 'COORDINATOR' &&
-                    applicationDetails.status === 'PENDING' && (
-                      <Button
-                        onClick={(e) => setEditOpen(!isEditOpen)}
-                        isIconOnly
-                        className="bg-white"
-                      >
-                        <Image
-                          src={'/editProfile.png'}
-                          width={35}
-                          height={35}
-                          alt={'right'}
-                        />
-                      </Button>
-                    )}
+              <div className="flex-1 flex justify-start">
+                <div className="font-bold text-2xl w-48">Status:</div>
+                <div className="flex items-center">
+                  {applicationDetails.status}
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="flex justify-end items-center pt-4">
+                  <div className="flex items-center justify-center ">
+                    {user.role === 'COORDINATOR' &&
+                      applicationDetails.status === 'PENDING' && (
+                        <Button
+                          onClick={(e) => setEditOpen(!isEditOpen)}
+                          isIconOnly
+                          className="bg-white"
+                        >
+                          <Image
+                            src={'/editProfile.png'}
+                            width={35}
+                            height={35}
+                            alt={'right'}
+                          />
+                        </Button>
+                      )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Photo and Name */}
-          <div className="flex items-center m-6 max-w-5xl mx-auto">
-            <div
-              style={{
-                position: 'relative',
-                width: '100px',
-                height: '100px',
-                marginRight: '2rem',
-              }}
-            >
-              <Image
-                alt="person"
-                src={
-                  applicationDetails.image !== ''
-                    ? applicationDetails.image
-                    : '/images/person2.jpg'
-                }
-                layout="fill"
-                objectFit="cover"
-                style={imageStyle}
-              />
-            </div>
-            <div
-              className="flex-col py-2 max-w-4xl whitespace-normal"
-              style={{ overflowWrap: 'break-word' }}
-            >
-              <div className="font-bold text-4xl">
-                {applicationDetails.name}
+            {/* Photo and Name */}
+            <div className="flex items-center m-6 max-w-5xl mx-auto">
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100px',
+                  height: '100px',
+                  marginRight: '2rem',
+                }}
+              >
+                <Image
+                  alt="person"
+                  src={
+                    applicationDetails.image !== ''
+                      ? applicationDetails.image
+                      : '/images/person2.jpg'
+                  }
+                  layout="fill"
+                  objectFit="cover"
+                  style={imageStyle}
+                />
+              </div>
+              <div
+                className="flex-col py-2 max-w-4xl whitespace-normal"
+                style={{ overflowWrap: 'break-word' }}
+              >
+                <div className="font-bold text-4xl">
+                  {applicationDetails.name}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Form Contents */}
-          <div className="flex-col justify-center max-w-5xl mx-auto">
-            <div className="mt-6">
-              <AppProfileItem
-                title="Designation:"
-                info={applicationDetails.designation}
-              />
-              <AppProfileItem
-                title="Department:"
-                info={applicationDetails.department}
-              />
-              <AppProfileItem
-                title="School:"
-                info={applicationDetails.school}
-              />
-              <AppProfileItem
-                title="Name of the Journal:"
-                info={applicationDetails.journalName}
-              />
-              <AppProfileItem
-                title="Title of the Article:"
-                info={applicationDetails.title}
-              />
-              <AppProfileItem
-                title="Total authors in this article (Including non-SUST Authors):"
-                info={applicationDetails.totalAuthors}
-              />
-              <ProfileItemArr
-                title="Authors order with affliation as in the article:"
-                info={applicationDetails.affiliatedPersons}
-              />
-              <AppProfileItem
-                title="Name of the corresponding author:"
-                info={applicationDetails.correspondingAuthor}
-              />
-
-              <AppProfileItem
-                title="Q Index of the Article:"
-                info={applicationDetails.qIndex}
-              />
-              <AppProfileItem
-                title="Name and Address of Publisher:"
-                info={applicationDetails.PublishernameAndAddress}
-              />
-              <AppProfileItem
-                title="Volume number with date:"
-                info={applicationDetails.volAndDate}
-              />
-              <AppProfileItem
-                title="Have you received any award/incentive for this article?:"
-                info={applicationDetails.awardDetails}
-              />
-              <AppProfileItem
-                title="Patent detail:"
-                info={applicationDetails.patentDetails}
-              />
-              <AppProfileItem
-                title="Apply Date:"
-                info={applicationDetails.date}
-              />
-              {applicationDetails.status === 'REJECTED' && (
+            {/* Form Contents */}
+            <div className="flex-col justify-center max-w-5xl mx-auto">
+              <div className="mt-6">
                 <AppProfileItem
-                  title="Rejection Cause:"
-                  info={applicationDetails.feedback}
+                  title="Designation:"
+                  info={applicationDetails.designation}
                 />
+                <AppProfileItem
+                  title="Department:"
+                  info={applicationDetails.department}
+                />
+                <AppProfileItem
+                  title="School:"
+                  info={applicationDetails.school}
+                />
+                <AppProfileItem
+                  title="Name of the Journal:"
+                  info={applicationDetails.journalName}
+                />
+                <AppProfileItem
+                  title="Title of the Article:"
+                  info={applicationDetails.title}
+                />
+                <AppProfileItem
+                  title="Total authors in this article (Including non-SUST Authors):"
+                  info={applicationDetails.totalAuthors}
+                />
+                <ProfileItemArr
+                  title="Authors order with affliation as in the article:"
+                  info={applicationDetails.affiliatedPersons}
+                />
+                <AppProfileItem
+                  title="Name of the corresponding author:"
+                  info={applicationDetails.correspondingAuthor}
+                />
+
+                <AppProfileItem
+                  title="Q Index of the Article:"
+                  info={applicationDetails.qIndex}
+                />
+                <AppProfileItem
+                  title="Name and Address of Publisher:"
+                  info={applicationDetails.PublishernameAndAddress}
+                />
+                <AppProfileItem
+                  title="Volume number with date:"
+                  info={applicationDetails.volAndDate}
+                />
+                <AppProfileItem
+                  title="Have you received any award/incentive for this article?:"
+                  info={applicationDetails.awardDetails}
+                />
+                <AppProfileItem
+                  title="Patent detail:"
+                  info={applicationDetails.patentDetails}
+                />
+                <AppProfileItem
+                  title="Apply Date:"
+                  info={applicationDetails.date}
+                />
+                {applicationDetails.status === 'REJECTED' && (
+                  <AppProfileItem
+                    title="Rejection Cause:"
+                    info={applicationDetails.feedback}
+                  />
+                )}
+              </div>
+            </div>
+            <div className="flex items-center justify-center mt-16 mb-5">
+              {(user.role === 'COORDINATOR' || user.role === 'ADMIN') &&
+                application.status === 'PENDING' && (
+                  <div className="mx-5">
+                    <ModalCoordinator
+                      applicationId={applicationDetails.id}
+                      changed={changed}
+                      setChanged={setChanged}
+                    />
+                  </div>
+                )}
+              {user.role === 'ADMIN' && application.status === 'PROCESSING' && (
+                <div className="mx-5">
+                  <ModalAssignReviewer
+                    applicationId={applicationDetails.id}
+                    changed={changed}
+                    setChanged={setChanged}
+                  />
+                </div>
+              )}
+              {application.status === 'ASSIGNED' &&
+                user.id === application.evaluatedBy.id && (
+                  <div className="mx-5">
+                    <ModalEvaluator
+                      applicationId={applicationDetails.id}
+                      changed={changed}
+                      setChanged={setChanged}
+                    />
+                  </div>
+                )}
+              {user.role === 'ADMIN' && application.status === 'ACCEPTED' && (
+                <div className="mx-5">
+                  <ModalPayment
+                    applicationId={applicationDetails.id}
+                    changed={changed}
+                    setChanged={setChanged}
+                  />
+                </div>
               )}
             </div>
           </div>
-          <div className="flex items-center justify-center mt-16 mb-5">
-            {(user.role === 'COORDINATOR' || user.role === 'ADMIN') &&
-              application.status === 'PENDING' && (
-                <div className="mx-5">
-                  <ModalCoordinator
-                    applicationId={applicationDetails.id}
-                    changed={changed}
-                    setChanged={setChanged}
-                  />
-                </div>
-              )}
-            {user.role === 'ADMIN' && application.status === 'PROCESSING' && (
-              <div className="mx-5">
-                <ModalAssignReviewer
-                  applicationId={applicationDetails.id}
-                  changed={changed}
-                  setChanged={setChanged}
-                />
-              </div>
-            )}
-            {application.status === 'ASSIGNED' &&
-              user.id === application.evaluatedBy.id && (
-                <div className="mx-5">
-                  <ModalEvaluator
-                    applicationId={applicationDetails.id}
-                    changed={changed}
-                    setChanged={setChanged}
-                  />
-                </div>
-              )}
-            {user.role === 'ADMIN' && application.status === 'ACCEPTED' && (
-              <div className="mx-5">
-                <ModalPayment
-                  applicationId={applicationDetails.id}
-                  changed={changed}
-                  setChanged={setChanged}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      
         </CardBody>
       </Card>
     </main>

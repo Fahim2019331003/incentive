@@ -4,7 +4,7 @@ const imageStyle = {
   borderRadius: '5%',
 };
 
-const ProfileImage = ({src}) => {
+const ProfileImage = ({ src }) => {
   return (
     <div
       style={{
@@ -16,7 +16,7 @@ const ProfileImage = ({src}) => {
     >
       <Image
         alt="person"
-        src={src===""?"/images/person2.jpg":src}
+        src={src === '' ? '/images/person2.jpg' : src}
         layout="fill"
         objectFit="cover"
         style={imageStyle}

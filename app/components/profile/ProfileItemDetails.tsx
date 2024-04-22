@@ -1,4 +1,4 @@
-const ProfileItem = ({ title, info }) => {
+const ProfileItemDetails = ({ title, info }) => {
   return (
     <div className="flex mb-1">
       <div className="font-semibold w-32 ">{title}</div>
@@ -9,4 +9,4 @@ const ProfileItem = ({ title, info }) => {
   );
 };
 
-export default ProfileItem;
+export default ProfileItemDetails;

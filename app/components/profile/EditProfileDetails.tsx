@@ -17,10 +17,10 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Loader from '../Loader';
 import EditProfileItem from '../edit-profile/EditProfileItem';
-import ProfileItem from './ProfileItem';
-import ProfileImage from './image';
+import ProfileImage from './ProfileImage';
+import ProfileItem from './ProfileItemDetails';
 
-const EditProfile = ({
+const EditProfileDetails = ({
   user,
   isEditOpen,
   setEditOpen,
@@ -219,4 +219,4 @@ const EditProfile = ({
   );
 };
 
-export default EditProfile;
+export default EditProfileDetails;
