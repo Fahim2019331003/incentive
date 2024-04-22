@@ -2,11 +2,8 @@
 import getProfileData from '@/app/actions/getProfileData';
 import Loader from '@/app/components/Loader';
 import UserProfile from '@/app/components/profile/UserProfile';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { getServerSession } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import EditProfile from './EditProfile';
 
 const ProfileClient = ({profileId ,viewer}) => {
