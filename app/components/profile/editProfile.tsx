@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Modal, ModalBody, ModalContent, ModalFooter, Mo
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Loader from '../Loader';
-import EditProfileItem from '../edit-profile/editProfileItem';
+import EditProfileItem from '../edit-profile/EditProfileItem';
 import ProfileImage from './image';
 import ProfileItem from './profileItem';
 import toast from 'react-hot-toast';
