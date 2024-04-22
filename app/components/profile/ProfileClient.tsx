@@ -1,24 +1,23 @@
-"use client";
+'use client';
 import getProfileData from '@/app/actions/getProfileData';
 import Loader from '@/app/components/Loader';
+import EditProfile from '@/app/components/profile/EditProfile';
 import UserProfile from '@/app/components/profile/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import EditProfile from './EditProfile';
 
-const ProfileClient = ({profileId ,viewer}) => {
-    const router = useRouter();
-  const [datas,setDatas]=useState(null);
-  const [loading,setLoading]=useState(1);
-  const [isEditOpen,setEditOpen]=useState(0);
-  const [changed,setChanged]=useState(0);
+const ProfileClient = ({ profileId, viewer }) => {
+  const router = useRouter();
+  const [datas, setDatas] = useState(null);
+  const [loading, setLoading] = useState(1);
+  const [isEditOpen, setEditOpen] = useState(0);
+  const [changed, setChanged] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user: any = await getProfileData(profileId);
-       
-        
+
         if (!user) {
           router.push('/404');
         }
@@ -32,19 +31,32 @@ const ProfileClient = ({profileId ,viewer}) => {
   }, [changed]);
   return (
     <div>
-        {loading?<Loader/> :( 
-            <div>
-                {isEditOpen?(<EditProfile user={datas} isEditOpen={isEditOpen} setEditOpen={setEditOpen} changed={changed} setChanged={setChanged} viewer={viewer}/>):
-                (<UserProfile user={datas} isEditOpen={isEditOpen} setEditOpen={setEditOpen} changed={changed} viewer={viewer}/>)
-                }
-
-            </div>
-
-
-
-        )}
+      {loading ? (
+        <Loader />
+      ) : (
+        <div>
+          {isEditOpen ? (
+            <EditProfile
+              user={datas}
+              isEditOpen={isEditOpen}
+              setEditOpen={setEditOpen}
+              changed={changed}
+              setChanged={setChanged}
+              viewer={viewer}
+            />
+          ) : (
+            <UserProfile
+              user={datas}
+              isEditOpen={isEditOpen}
+              setEditOpen={setEditOpen}
+              changed={changed}
+              viewer={viewer}
+            />
+          )}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default ProfileClient
+export default ProfileClient;
