@@ -170,7 +170,7 @@ export function Nav({ links, isCollapsed, commonLinks }: NavProps) {
             )
           )}
         </nav>
-        <Separator />
+        {links.length !==0 && (<Separator />)}
       </div>
     </TooltipProvider>
   );

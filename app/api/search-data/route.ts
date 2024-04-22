@@ -267,6 +267,59 @@ export async function POST(request: Request) {
 
 
       }
+      case "dashboard": {
+        const data = await prisma.application.findMany({
+          where: {
+            OR: [
+              {
+                applicant: {
+                  name: {
+                    contains: queryText,
+                    mode: 'insensitive',
+                  },
+                },
+              },
+              {
+                applicant: {
+                  email: {
+                    contains: queryText,
+                  },
+                },
+              },
+            ],
+            AND:[
+              {
+                OR:[
+                  {
+                    status:"ACCEPTED"
+                  },
+                  {
+                    status:"PAID"
+                  },
+                ]
+              }
+            ]
+          },
+          select: {
+            id: true,
+            title: true,
+            department: true,
+            journalName: true,
+            applicant: {
+              select: {
+                name: true,
+              },
+            },
+            affiliatedPersons: true,
+            volAndDate: true,
+            status: true,
+            qIndex: true,
+          },
+        });
+
+        return NextResponse.json(data);
+      }
+      
 
       default: {
         const data = await prisma.application.findMany({

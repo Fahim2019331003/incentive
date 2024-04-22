@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { isValidUser } from './checkApplication';
 
-export default async function getTableData() {
+export default async function getTableAssignedData(userId) {
+
+  const data={
+    userId,
+  }
   const res = await axios
-    .post('/api/assignedApplications', {})
+    .post('/api/assignedApplications', {data})
     .then(async (res) => {
       const data = res.data;
       const tableData = await Promise.all(
@@ -27,10 +31,11 @@ export default async function getTableData() {
             volAndDate:item.volAndDate,
             status:item.status,
             qIndex:item.qIndex,
+            evaluatedBy:item.evaluatedBy,
           };
         })
       );
-      console.log(tableData);
+      // console.log(tableData);
       return tableData;
     })
     .catch((err) => {

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import SideNav from './SideNav';
 
-const Layout = ({ children }) => {
+const Layout = ({ userId, userRole ,children }) => {
   const [isCollapsed, setCollapsed] = useState(false);
   return (
     ///for adding top margin and screen
@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
       {/* for adding border */}
 
       <div className="overflow-y-auto pt-28">
-        <SideNav isCollapsed={isCollapsed} setCollapsed={setCollapsed} />
+        <SideNav isCollapsed={isCollapsed} setCollapsed={setCollapsed} userRole={userRole} userId={userId}/>
       </div>
       <div className={'flex-1 overflow-y-auto'}>{children}</div>
     </div>

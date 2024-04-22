@@ -83,7 +83,7 @@ const columns = [
   },
 ];
 
-const TableProcessing = () => {
+const TableProcessing = ({role}) => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   // const [selectedKeysValues, setSelectedKeysValues] = useState([]);
   const [page, setPage] = useState(1);
@@ -268,13 +268,13 @@ const TableProcessing = () => {
           />
         </div>
         <div className="flex-1 flex justify-end">
-          <Button
+          {role !=="COORDINATOR" && (<Button
             variant="solid"
             className="bg-black text-white"
             onPress={OnClickHandlerB}
           >
             Assign Reviewer
-          </Button>
+          </Button>)}
         </div>
       </div>
     );

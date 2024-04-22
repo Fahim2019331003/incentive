@@ -18,7 +18,7 @@ const items = [
   },
 ];
 
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 
@@ -54,7 +54,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex-grow h-[550px]  m-auto  relative group">
+    <div className="flex-grow h-[400px]  m-auto  relative group">
       <div
         style={{ backgroundImage: `url(${items[currentIndex].address})` }}
         className="w-full h-full bg-center bg-cover duration-500"

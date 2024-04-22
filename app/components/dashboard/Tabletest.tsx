@@ -1,8 +1,7 @@
 'use client';
 
-import { getSearchData } from '@/app/actions/getSearchData';
-import getTableData from '@/app/actions/getTableData';
 import {
+  Card,
   Input,
   Pagination,
   Table,
@@ -12,6 +11,25 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/react';
+
+import { getSearchData } from '@/app/actions/getSearchData';
+import getTableDashboardData from '@/app/actions/getTableDashboardData';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
+  CircleArrowDown,
+  CircleCheck,
+  CircleDollarSign,
+  CircleX,
+  EllipsisVertical,
+  LoaderCircle,
+} from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Loader from '../Loader';
@@ -39,8 +57,16 @@ const columns = [
     label: 'Name of SUST Author(s)',
   },
   {
-    key: 'journalName',
-    label: 'Journal Name',
+    key: 'volAndDate',
+    label: 'Vol & Date',
+  },
+  {
+    key: 'qIndex',
+    label: 'Status in Q',
+  },
+  {
+    key: 'status',
+    label: 'Status',
   },
   {
     key: 'actions',
@@ -48,7 +74,7 @@ const columns = [
   },
 ];
 
-const CustomTable = ({ title }) => {
+const TableDashboard = () => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -60,7 +86,8 @@ const CustomTable = ({ title }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response: any = await getTableData();
+        const response: any = await getTableDashboardData();
+
         setDatas(response);
         setTableData(response);
         setLoading(0);
@@ -83,7 +110,7 @@ const CustomTable = ({ title }) => {
 
   const filterItems = useMemo(async () => {
     if (hasSearchFilter) {
-      const tableType = 'all';
+      const tableType = 'dashboard';
       const temp_data: any = await getSearchData(search, tableType);
       setDatas(temp_data);
     } else {
@@ -111,22 +138,25 @@ const CustomTable = ({ title }) => {
 
   const topContent = useMemo(() => {
     return (
-      <div className="flex flex-row-reverse gap-2 max-w-[320px]">
-        <Input
-          isClearable
-          variant="flat"
-          size="sm"
-          placeholder="Search..."
-          onClear={onClears}
-          onValueChange={onSearchChange}
-          startContent={
-            <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-          }
-          classNames={{
-            input:
-              'focus:outline-none border-transparent focus:border-transparent focus:ring-0',
-          }}
-        />
+      <div className="flex items-center justify-center">
+        <div className="flex-1 max-w-[320px]">
+          <Input
+            isClearable
+            variant="flat"
+            size="sm"
+            placeholder="Search..."
+            onClear={onClears}
+            onValueChange={onSearchChange}
+            startContent={
+              <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+            }
+            classNames={{
+              input:
+                'focus:outline-none border-transparent focus:border-transparent focus:ring-0',
+            }}
+          />
+        </div>
+        <div className="flex-1 flex justify-end"></div>
       </div>
     );
   }, []);
@@ -137,20 +167,68 @@ const CustomTable = ({ title }) => {
     switch (columnKey) {
       case 'affiliatedPersons':
         return (
-          <div className="flex flex-col items-center justify-center min-h-[40px]">
+          <div className="flex flex-col items-center justify-center min-h-[60px] max-w-[150px] text-sm">
             {user.affiliatedPersons.map((person) => {
-              return <div key={person}>{person}</div>;
+              return <div key={person} className='text-center'>{person}</div>;
             })}
           </div>
         );
       case 'actions':
         return (
-          <div className="text-destructive">
-            <Link href={`/applications/${user.id}`}>Details</Link>
+          <div className="relative flex justify-end items-center gap-2">
+            <Link href={`/applications/${user.id}`}>
+              <Button className="rounded-full" variant="link">
+                <EllipsisVertical size={20} />
+              </Button>
+            </Link>
           </div>
         );
+      case 'status':
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                {cellValue === 'PENDING' && (
+                  <CircleArrowDown color={'#FFA500'} size={20} />
+                )}
+                {cellValue === 'PROCESSING' && (
+                  <LoaderCircle color={'#FFA500'} size={20} />
+                )}
+                {cellValue === 'ACCEPTED' && (
+                  <CircleCheck color={'#039487'} size={20} />
+                )}
+                {cellValue === 'REJECTED' && (
+                  <CircleX color={'#FF0000'} size={20} />
+                )}
+                {cellValue === 'PAID' && (
+                  <CircleDollarSign color={'#039487'} size={20} />
+                )}
+                {cellValue === 'ASSIGNED' && (
+                  <LoaderCircle color={'#039487'} size={20} />
+                )}
+
+                {/* <CircleCheck color="#00ff00" size={12} /> */}
+              </TooltipTrigger>
+              <TooltipContent>
+                {cellValue === 'PENDING' && <p>Submitted Application</p>}
+                {cellValue === 'PROCESSING' && <p>Processing</p>}
+                {cellValue === 'ASSIGNED' && <p>Assigned Reviewer</p>}
+                {cellValue === 'ACCEPTED' && <p>Accepted</p>}
+                {cellValue === 'REJECTED' && <p>Rejected</p>}
+                {cellValue === 'PAID' && <p>Paid</p>}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        );
+        case "id":{
+          return (
+            <div className="max-w-[100px] text-sm text-center">{cellValue}</div>
+          );
+        }
       default:
-        return cellValue;
+        return (
+          <div className="max-w-[150px] text-sm text-center">{cellValue}</div>
+        );
     }
   }, []);
 
@@ -162,66 +240,64 @@ const CustomTable = ({ title }) => {
   }, [page, datas]);
 
   return (
-    <div>
-      <div className="text-4xl font-semibold text-center px-28 w-7xl">
-        {title}
-      </div>
-
-      <div>
-        <div className="relative overflow-x-auto mb-10 mt-3 ">
-          <div className="mt-5 text-3xs">
-            {/* Table Rows */}
-            {loading ? (
-              <Loader />
-            ) : (
-              <Table
-                color={'primary'}
-                selectionMode="single"
-                aria-label="Example table with client side pagination"
-                topContent={topContent}
-                bottomContent={
-                  <div className="flex w-full justify-center">
-                    <Pagination
-                      isCompact
-                      showControls
-                      showShadow
-                      color="primary"
-                      page={page}
-                      total={pages}
-                      onChange={(page) => setPage(page)}
-                    />
-                  </div>
-                }
-                classNames={{
-                  wrapper: 'min-h-[222px]',
-                }}
-                onSelectionChange={(e) => changeSelectionKeys(e)}
+      
+    <div className="my-5">
+      <div className="relative overflow-x-auto mb-10 mt-3">
+        <div className="mt-5 text-3xs">
+          {/* Table Rows */}
+          {loading ? (
+            <Loader />
+          ) : (
+            <Table
+              color={'primary'}
+              selectionMode="single"
+              aria-label="Example table with client side pagination"
+              topContent={topContent}
+              bottomContent={
+                <div className="flex w-full justify-center">
+                  <Pagination
+                    isCompact
+                    showControls
+                    showShadow
+                    color="primary"
+                    page={page}
+                    total={pages}
+                    onChange={(page) => setPage(page)}
+                  />
+                </div>
+              }
+              classNames={{
+                wrapper: 'min-h-[222px]',
+              }}
+              onSelectionChange={(e) => changeSelectionKeys(e)}
+            >
+              <TableHeader columns={columns}>
+                {(column) => (
+                  <TableColumn key={column.key}>
+                    <div className="max-w-[150px]">{column.label}</div>
+                  </TableColumn>
+                )}
+              </TableHeader>
+              <TableBody
+                items={items}
+                emptyContent={'No rows to display.'}
+                className="text-3xs"
               >
-                <TableHeader columns={columns}>
-                  {(column) => (
-                    <TableColumn key={column.key}>{column.label}</TableColumn>
-                  )}
-                </TableHeader>
-                <TableBody
-                  items={items}
-                  emptyContent={'No rows to display.'}
-                  className="text-3xs"
-                >
-                  {(item: any) => (
-                    <TableRow key={item.id} className="pt-10">
-                      {(columnKey) => (
-                        <TableCell>{renderCell(item, columnKey)}</TableCell>
-                      )}
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            )}
-          </div>
+                {(item: any) => (
+                  <TableRow key={item.id} className="pt-10">
+                    {(columnKey) => (
+                      <TableCell>{renderCell(item, columnKey)}</TableCell>
+                    )}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          )}
         </div>
       </div>
     </div>
+      
   );
 };
 
-export default CustomTable;
+export default TableDashboard;

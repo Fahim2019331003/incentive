@@ -8,10 +8,10 @@ import TableProcessing from './TableProcessing';
 import TableRejected from './TableRejected';
 import TableSubmitted from './TableSubmitted';
 
-const ApplicationTab = () => {
+const ApplicationTab = ({role}) => {
   return (
     <div className="flex w-full flex-col">
-      <div className="flex justify-center pt-8 pb-6 text-3xl font-semibold">
+      <div className="flex justify-center pt-8 pb-6 text-3xl font-semibold mb-5">
         Application Page
       </div>
       {/* <div className="text-2xl mb-10">Application Page</div> */}
@@ -46,7 +46,7 @@ const ApplicationTab = () => {
                 This table contains all applications that are on processing
                 phase. Admin will assign reviewer for each application.
               </div>
-              <TableProcessing />
+              <TableProcessing role={role}/>
             </CardBody>
           </Card>
         </Tab>
@@ -57,7 +57,7 @@ const ApplicationTab = () => {
                 This table contains all applications that are on assigned phase.
                 Reviewers will review these applications.
               </div>
-              <TableAssigned />
+              <TableAssigned role={role}/>
             </CardBody>
           </Card>
         </Tab>
@@ -69,7 +69,7 @@ const ApplicationTab = () => {
                 &apos;Accepted&apos; by reviewers, but not issued for payment.
                 These applications are waiting to be issued for payment.
               </div>
-              <TableAccepted />
+              <TableAccepted role={role}/>
             </CardBody>
           </Card>
         </Tab>

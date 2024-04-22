@@ -1,9 +1,18 @@
+import { getServerSession } from 'next-auth';
 import AddNewButton from '../components/notice/addnewbutton';
 import NoticeItem from '../components/notice/noticeItem';
 import { noticeData } from './data';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import Notices from '../components/notice/Notices';
 
 
-const page = () => {
+const page = async() => {
+
+  const session = await getServerSession(authOptions);
+  const role = session?.user.role?session?.user.role:"NONE" ;
+
+
+
   return (
     <main className="min-h-screen xl:px-10 xl:pt-10">
       <div className="flex justify-center max-w-full mx-auto">
@@ -11,24 +20,16 @@ const page = () => {
           <h1>Notice Archive</h1>
         </div>
       </div>
-
-      <AddNewButton />
+      {
+        (role==="ADMIN" || role==="COORDINATOR") && 
+        (<AddNewButton />)
+      }
 
       <div className="flex justify-center mt-4 mb-16">
         <div className="bg-gray-100 rounded-xl py-10 max-w-7xl">
           <div className="flex flex-col justify-around">
             <div className="px-15">
-              <ol>
-                {noticeData.map((item, index) => (
-                  <NoticeItem
-                    data={item.data}
-                    key={index}
-                    day={item.day}
-                    month={item.month}
-                    year={item.year}
-                  />
-                ))}
-              </ol>
+              <Notices/>
             </div>
           </div>
         </div>

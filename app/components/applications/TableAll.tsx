@@ -168,7 +168,7 @@ const TableAll = () => {
         return (
           <div className="flex flex-col items-center justify-center min-h-[60px] max-w-[150px] text-sm">
             {user.affiliatedPersons.map((person) => {
-              return <div key={person}>{person}</div>;
+              return <div key={person} className='text-center'>{person}</div>;
             })}
           </div>
         );
