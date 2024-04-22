@@ -81,7 +81,7 @@ const columns = [
   },
 ];
 
-const TableAccepted = () => {
+const TableAccepted = ({role}) => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [selectedKeysValues, setSelectedKeysValues] = useState([]);
   const [page, setPage] = useState(1);
@@ -233,13 +233,13 @@ const TableAccepted = () => {
           />
         </div>
         <div className="flex-1 flex justify-end">
-          <Button
+          {role !=="COORDINATOR" && (<Button
             variant="solid"
             className="bg-black text-white"
             onPress={OnClickHandler}
           >
             Send For Payment
-          </Button>
+          </Button>)}
         </div>
       </div>
     );

@@ -19,7 +19,7 @@ function convertToBengaliNumber(number) {
 
 const ListItem = ({ data, index, key }) => {
   return (
-    <li className="py-3 px-28 mt-3" key={key}>
+    <li className="py-3 px-10 mt-3" key={key}>
       <div className="flex mx-10 bg-white rounded-xl shadow-lg p-3 text-lg">
         <div>{convertToBengaliNumber(index)}.</div>
         <div className="ml-3">{data}</div>

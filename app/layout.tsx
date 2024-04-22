@@ -13,6 +13,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 import { cn } from '@/lib/utils';
 import Layout from './components/Layout';
+import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export const metadata = {
   title: 'incentive web',
@@ -25,6 +28,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+  // const session = await getServerSession(authOptions);
+  const userRole = currentUser?.role ? currentUser?.role :"NONE" ;
+  const userId = currentUser?.id ? currentUser?.id :"NONE" ;
 
   return (
     <html lang="en">
@@ -34,7 +40,7 @@ export default async function RootLayout({
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
-          <Layout>
+          <Layout userRole={userRole} userId={userId}>
           <div className="pt-24 xl:pt-16 ">{children}</div>
           </Layout>
           <Footer />

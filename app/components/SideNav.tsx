@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { Nav } from '@/components/ui/nav';
 import {
-  ChevronsLeftRight,
   File,
   HandCoins,
   Home,
@@ -44,164 +42,146 @@ const commonLinks = [
   },
 ];
 
-const adminLinks = [
-  {
-    title: 'Applications',
-    label: '',
-    icon: File,
-    variant: 'default',
-    href: '/applications',
-  },
-  {
-    title: 'New Notice',
-    label: '',
-    icon: Newspaper,
-    variant: 'ghost',
-    href: '/new-notice',
-  },
-  {
-    title: 'Track Funds',
-    label: '',
-    icon: HandCoins,
-    variant: 'ghost',
-    href: '/track-funds',
-  },
-  {
-    title: 'Accounts',
-    label: '',
-    icon: User,
-    variant: 'ghost',
-    href: '/accounts',
-  },
-  {
-    title: 'Assign Roles',
-    label: '',
-    icon: UserCog,
-    variant: 'ghost',
-    href: '/assign-roles',
-  },
-];
 
-const userLinks = [
-  {
-    ///pore use korbo
-    title: 'Applications',
-    label: '',
-    icon: File,
-    variant: 'default',
-    href: '/applications',
-  },
-  {
-    title: 'New Notice',
-    label: '',
-    icon: Newspaper,
-    variant: 'ghost',
-    href: '/new-notice',
-  },
-  {
-    title: 'Track Funds',
-    label: '',
-    icon: HandCoins,
-    variant: 'ghost',
-    href: '/track-funds',
-  },
-  {
-    title: 'Accounts',
-    label: '',
-    icon: User,
-    variant: 'ghost',
-    href: '/accounts',
-  },
-  {
-    title: 'Assign Roles',
-    label: '',
-    icon: UserCog,
-    variant: 'ghost',
-    href: '/assign-roles',
-  },
-];
+const SideNav = ({ userId, userRole, isCollapsed, setCollapsed }) => {
 
-const reviewerLinks = [
-  {
-    title: 'Applications',
-    label: '',
-    icon: File,
-    variant: 'default',
-    href: '/applications',
-  },
-  {
-    title: 'New Notice',
-    label: '',
-    icon: Newspaper,
-    variant: 'ghost',
-    href: '/new-notice',
-  },
-  {
-    title: 'Track Funds',
-    label: '',
-    icon: HandCoins,
-    variant: 'ghost',
-    href: '/track-funds',
-  },
-  {
-    title: 'Accounts',
-    label: '',
-    icon: User,
-    variant: 'ghost',
-    href: '/accounts',
-  },
-  {
-    title: 'Assign Roles',
-    label: '',
-    icon: UserCog,
-    variant: 'ghost',
-    href: '/assign-roles',
-  },
-];
+  const adminLinks = [
+    {
+      title: 'Applications',
+      label: '',
+      icon: File,
+      variant: 'default',
+      href: '/applications',
+    },
+    {
+      title: 'New Notice',
+      label: '',
+      icon: Newspaper,
+      variant: 'ghost',
+      href: '/new-notice',
+    },
+    {
+      title: 'Track Funds',
+      label: '',
+      icon: HandCoins,
+      variant: 'ghost',
+      href: '/track-funds',
+    },
+    {
+      title: 'Accounts',
+      label: '',
+      icon: User,
+      variant: 'ghost',
+      href: '/accounts',
+    },
+    {
+      title: 'My Profile',
+      label: '',
+      icon: User,
+      variant: 'ghost',
+      href: `/profile/${userId}`,
+    },
+  ];
+  
+  const userLinks = [
+    {
+      title: 'My Applications',
+      label: '',
+      icon: File,
+      variant: 'default',
+      href: '/user-applications',
+    },
+    {
+      title: 'My Incentives',
+      label: '',
+      icon: HandCoins,
+      variant: 'ghost',
+      href: '/user-funds',
+    },
+    {
+      title: 'My Profile',
+      label: '',
+      icon: User,
+      variant: 'ghost',
+      href: `/profile/${userId}`,
+    },
+  ];
+  
+  const evaluatorLinks = [
+    {
+      title: 'My Applications',
+      label: '',
+      icon: File,
+      variant: 'default',
+      href: '/user-applications',
+    },
+    {
+      title: 'Review Applications',
+      label: '',
+      icon: File,
+      variant: 'default',
+      href: '/review-applications',
+    },
+    {
+      title: 'My Incentives',
+      label: '',
+      icon: HandCoins,
+      variant: 'ghost',
+      href: '/user-funds',
+    },
+    {
+      title: 'My Profile',
+      label: '',
+      icon: User,
+      variant: 'ghost',
+      href: `/profile/${userId}`,
+    },
+  
+  ];
+  
+  const coordinatorLinks = [
+    {
+      title: 'Applications',
+      label: '',
+      icon: File,
+      variant: 'default',
+      href: '/applications',
+    },
+    {
+      title: 'New Notice',
+      label: '',
+      icon: Newspaper,
+      variant: 'ghost',
+      href: '/new-notice',
+    },
+    {
+      title: 'Track Funds',
+      label: '',
+      icon: HandCoins,
+      variant: 'ghost',
+      href: '/track-funds',
+    },
+    {
+      title: 'Accounts',
+      label: '',
+      icon: User,
+      variant: 'ghost',
+      href: '/accounts',
+    },
+    {
+      title: 'My Profile',
+      label: '',
+      icon: User,
+      variant: 'ghost',
+      href: `/profile/${userId}`,
+    },
+  ];
+  
 
-const coordinatorLinks = [
-  {
-    title: 'Applications',
-    label: '',
-    icon: File,
-    variant: 'default',
-    href: '/applications',
-  },
-  {
-    title: 'New Notice',
-    label: '',
-    icon: Newspaper,
-    variant: 'ghost',
-    href: '/new-notice',
-  },
-  {
-    title: 'Track Funds',
-    label: '',
-    icon: HandCoins,
-    variant: 'ghost',
-    href: '/track-funds',
-  },
-  {
-    title: 'Accounts',
-    label: '',
-    icon: User,
-    variant: 'ghost',
-    href: '/accounts',
-  },
-  {
-    title: 'Assign Roles',
-    label: '',
-    icon: UserCog,
-    variant: 'ghost',
-    href: '/assign-roles',
-  },
-];
-
-const SideNav = ({ isCollapsed, setCollapsed }) => {
   return (
-     <div className={isCollapsed ? 'w-[80px]' : 'w-[260px]'}>
-        <div className="flex justify-end">
-          {/* <Button
+    <div className={isCollapsed ? 'w-[80px]' : 'w-[260px]'}>
+      <div className="flex justify-end">
+        {/* <Button
             onClick={() => setCollapsed(!isCollapsed)}
             variant="secondary"
             size="icon"
@@ -209,13 +189,40 @@ const SideNav = ({ isCollapsed, setCollapsed }) => {
           >
             <ChevronsLeftRight />
           </Button> */}
-        </div>
+      </div>
+      {userRole === 'NONE' && (
+        <Nav isCollapsed={isCollapsed} links={[]} commonLinks={commonLinks} />
+      )}
+
+      {userRole === 'APPLICANT' && (
+        <Nav
+          isCollapsed={isCollapsed}
+          links={userLinks}
+          commonLinks={commonLinks}
+        />
+      )}
+      {userRole === 'ADMIN' && (
         <Nav
           isCollapsed={isCollapsed}
           links={adminLinks}
           commonLinks={commonLinks}
         />
-      </div>
+      )}
+      {userRole === 'EVALUATOR' && (
+        <Nav
+          isCollapsed={isCollapsed}
+          links={evaluatorLinks}
+          commonLinks={commonLinks}
+        />
+      )}
+      {userRole === 'COORDINATOR' && (
+        <Nav
+          isCollapsed={isCollapsed}
+          links={coordinatorLinks}
+          commonLinks={commonLinks}
+        />
+      )}
+    </div>
   );
 };
 

@@ -76,12 +76,16 @@ const columns = [
     label: 'Status',
   },
   {
+    key: 'evaluatedBy',
+    label: 'Assigned To',
+  },
+  {
     key: 'actions',
     label: 'Actions',
   },
 ];
 
-const TableAssigned = () => {
+const TableAssigned = ({role}) => {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [selectedKeysValues, setSelectedKeysValues] = useState([]);
   const [page, setPage] = useState(1);
@@ -107,7 +111,7 @@ const TableAssigned = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response: any = await getTableAssignedData();
+        const response: any = await getTableAssignedData("");
 
         setDatas(response);
         setTableData(response);
@@ -166,7 +170,7 @@ const TableAssigned = () => {
       } else {
         toast.error(response.message);
       }
-      const newData: any = await getTableAssignedData();
+      const newData: any = await getTableAssignedData("");
       setDatas(newData);
       setTableData(newData);
     } else {
@@ -187,7 +191,7 @@ const TableAssigned = () => {
       } else {
         toast.error(response.message);
       }
-      const newData: any = await getTableAssignedData();
+      const newData: any = await getTableAssignedData("");
       setDatas(newData);
       setTableData(newData);
     }
@@ -230,7 +234,7 @@ const TableAssigned = () => {
       } else {
         toast.error(response.message);
       }
-      const newData: any = await getTableAssignedData();
+      const newData: any = await getTableAssignedData("");
       setDatas(newData);
       setTableData(newData);
     } else {
@@ -251,7 +255,7 @@ const TableAssigned = () => {
       } else {
         toast.error(response.message);
       }
-      const newData: any = await getTableAssignedData();
+      const newData: any = await getTableAssignedData("");
       setDatas(newData);
       setTableData(newData);
     }
@@ -307,20 +311,20 @@ const TableAssigned = () => {
           />
         </div>
         <div className="flex-1 flex justify-end">
-          <Button
+          {role !=="COORDINATOR" && (<Button
             variant="solid"
             className="bg-black text-white mx-3"
             onPress={OnClickHandlerB}
           >
             Reject
-          </Button>
-          <Button
+          </Button>)}
+          {role !=="COORDINATOR" && (<Button
             variant="solid"
             className="bg-black text-white"
             onPress={OnClickHandlerA}
           >
             Accept For Incentive
-          </Button>
+          </Button>)}
         </div>
       </div>
     );
@@ -341,6 +345,10 @@ const TableAssigned = () => {
               );
             })}
           </div>
+        );
+        case 'evaluatedBy':
+        return (
+            <div className="max-w-[150px] text-sm text-center">{user.evaluatedBy.name}</div>
         );
       case 'status':
         return (

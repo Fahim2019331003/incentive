@@ -34,20 +34,22 @@ model Account {
 // }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  verified       Boolean   @default(false)
-  role           Role      @default(APPLICANT)
-  department     String?
-  designation    String?
-  bankinfo       String?
-
+  id                    String         @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String?
+  email                 String?        @unique
+  emailVerified         DateTime?
+  image                 String?
+  hashedPassword        String?
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+  verified              Boolean        @default(false)
+  role                  Role           @default(APPLICANT)
+  department            String?
+  designation           String?
+  bankinfo              String?
+  school                String?
+  contact               String?
+  address               String?
   accounts              Account[]
   // collections           Collection[]
   asApplicant           Application[]  @relation("Applicant")
@@ -130,6 +132,15 @@ model Payment {
   // applicationForId String?       @db.ObjectId
   // application      Application? @relation("ApplicationFor", fields: [applicationForId], references: [id])
 }
+
+model Notice {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text      String?
+  title     String?
+}
+
 
 enum Status {
   PENDING

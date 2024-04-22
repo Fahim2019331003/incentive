@@ -104,7 +104,7 @@ const ApplyForm = () => {
       totalAuthors: totalAuthors,
     };
 
-    console.log(totalAuthors);
+    // console.log(totalAuthors);
 
     try {
       //checking if application is valid.
